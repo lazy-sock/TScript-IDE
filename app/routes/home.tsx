@@ -3,6 +3,7 @@ import { Editor } from "@monaco-editor/react";
 import { loader } from "@monaco-editor/react";
 import { useState } from "react";
 import { languageDefinition, languageConfig } from "../languageDefinition";
+import { run_tscript } from "~/runTscript";
 
 console.log("Editor is:", Editor);
 console.log("Type:", typeof Editor);
@@ -69,23 +70,29 @@ function handleEditorWillMount(monaco: any) {
 
 export default function Home() {
   const [code, setCode] = useState("");
+  const [output, setOutput] = useState("");
 
   const handleEditorChange = (value: any) => {
     setCode(value);
+    setOutput(JSON.stringify(run_tscript(value || ""), null, 2));
+    console.log("output:", output);
   };
   return (
-    <Editor
-      className="p-4"
-      height="80vh"
-      defaultLanguage="tscript"
-      value={code}
-      onChange={handleEditorChange}
-      beforeMount={handleEditorWillMount}
-      theme="vs-dark"
-      options={{
-        minimap: { enabled: false },
-        fontSize: 14,
-      }}
-    />
+    <div>
+      <Editor
+        className="p-4"
+        height="80vh"
+        defaultLanguage="tscript"
+        value={code}
+        onChange={handleEditorChange}
+        beforeMount={handleEditorWillMount}
+        theme="vs-dark"
+        options={{
+          minimap: { enabled: false },
+          fontSize: 14,
+        }}
+      />
+      <div className="w-full text-[1.25rem] p-4">{output}</div>
+    </div>
   );
 }
