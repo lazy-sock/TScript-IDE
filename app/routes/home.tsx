@@ -1,5 +1,9 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Editor } from "@monaco-editor/react";
+import { useState } from "react";
+
+console.log("Editor is:", Editor);
+console.log("Type:", typeof Editor);
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +13,23 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+  const [code, setCode] = useState("");
+
+  const handleEditorChange = (value: any) => {
+    setCode(value);
+  };
+  return (
+    <Editor
+      className="p-4"
+      height="80vh"
+      defaultLanguage="javascript"
+      value={code}
+      onChange={handleEditorChange}
+      theme="vs-dark"
+      options={{
+        minimap: { enabled: false },
+        fontSize: 14,
+      }}
+    />
+  );
 }
