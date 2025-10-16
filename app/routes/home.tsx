@@ -77,6 +77,7 @@ function formatOutput(output: string): string {
 
   for (let i in object) {
     result += object[i].value;
+    result += "\n";
   }
 
   return result;
