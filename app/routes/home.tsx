@@ -4,6 +4,7 @@ import { loader } from "@monaco-editor/react";
 import { useState } from "react";
 import { languageDefinition, languageConfig } from "../languageDefinition";
 import { run_tscript } from "~/runTscript";
+import { useLocalStorage } from "~/codeSaving";
 
 console.log("Editor is:", Editor);
 console.log("Type:", typeof Editor);
@@ -82,7 +83,7 @@ function formatOutput(output: string): string {
 }
 
 export default function Home() {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useLocalStorage("code", "");
   const [output, setOutput] = useState("");
 
   const handleEditorChange = (value: any) => {
