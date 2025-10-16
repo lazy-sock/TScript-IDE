@@ -68,6 +68,19 @@ function handleEditorWillMount(monaco: any) {
   });
 }
 
+function formatOutput(output: string): string {
+  console.log(output);
+  if (output == "") return "";
+  let object = JSON.parse(output);
+  let result = "";
+
+  for (let i in object) {
+    result += object[i].value;
+  }
+
+  return result;
+}
+
 export default function Home() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
@@ -92,7 +105,7 @@ export default function Home() {
           fontSize: 14,
         }}
       />
-      <div className="w-full text-[1.25rem] p-4">{output}</div>
+      <div className="w-full text-[1.25rem] p-4">{formatOutput(output)}</div>
     </div>
   );
 }
