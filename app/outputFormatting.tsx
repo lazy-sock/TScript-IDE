@@ -2,7 +2,7 @@ import { canvasTurtle } from "./canvasTurtle";
 
 export function formatOutput(
   output: string,
-  canvasRef: HTMLCanvasElement,
+  canvasRef: HTMLCanvasElement | null,
 ): string {
   if (output == "") return "";
   let object = JSON.parse(output);

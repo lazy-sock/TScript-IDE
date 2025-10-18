@@ -22,7 +22,7 @@ export default function Home() {
   const { triggerUpload } = useUpload();
   const { setOnNavClick } = useNavBar();
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctx = canvasRef.current?.getContext("2d");
 
   useEffect(() => {
@@ -86,12 +86,12 @@ export default function Home() {
         ></canvas>
       )}
       <div className="fixed whitespace-pre-line right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] p-4 text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
-        {formatOutput(output, canvasRef.current!).startsWith("Error") ? (
+        {formatOutput(output, canvasRef.current).startsWith("Error") ? (
           <div className="text-[1.25rem] font-bold text-[#f38ba8]">
             {formatError(output)}
           </div>
         ) : (
-          formatOutput(output, canvasRef.current!)
+          formatOutput(output, canvasRef.current)
         )}
       </div>
     </div>

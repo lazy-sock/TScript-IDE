@@ -1,9 +1,9 @@
 export function canvasTurtle(
-  canvas: HTMLCanvasElement,
+  canvas: HTMLCanvasElement | null,
   input: { type: string; from: number[]; to: number[]; color: string },
 ) {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d")!;
 
   // Use actual canvas dimensions (not offset)
   const width = canvas.width;
