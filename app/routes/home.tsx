@@ -9,9 +9,6 @@ import { useNavBar } from "../components/NavBarContext";
 import { useEffect } from "react";
 import { canvasTurtle } from "~/canvasTurtle";
 
-console.log("Editor is:", Editor);
-console.log("Type:", typeof Editor);
-
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
@@ -101,7 +98,6 @@ function handleEditorWillMount(monaco: any) {
 }
 
 function formatOutput(output: string, canvasRef: HTMLCanvasElement): string {
-  console.log(output);
   if (output == "") return "";
   let object = JSON.parse(output);
   let result = "";
@@ -132,7 +128,6 @@ function formatError(output: string): string {
   let result = "Error: ";
   if (output == "") return "";
   let object = JSON.parse(output);
-  console.log("error object: ", object[0]);
   for (let i in object) {
     result += "Line " + object[i].line + ": ";
     result += object[i].message;
@@ -150,17 +145,13 @@ export default function Home() {
 
   useEffect(() => {
     const handler = async (action: string) => {
-      console.log("Home received action:", action);
       if (action === "turtle") {
         setTurtle((prev) => !prev);
       } else if (action === "save") {
-        console.log(code);
         downloadCode("code", code, "application/tscript");
       } else if (action === "upload") {
         try {
           const { filename, content } = await triggerUpload();
-          console.log("Uploaded file:", filename);
-          console.log("File content:", content);
           setCode(content);
         } catch (err) {
           console.error("Upload failed:", err);
@@ -170,7 +161,6 @@ export default function Home() {
         const size = parseInt(sizeStr, 10);
         if (!isNaN(size)) {
           setFontsize(size);
-          console.log("asdf", size);
         }
       }
     };
@@ -186,11 +176,9 @@ export default function Home() {
 
   const handleEditorChange = (value: any) => {
     setCode(value);
-    console.log(value);
     let result = JSON.stringify(run_tscript(value || ""));
     //TODO: Interpret smart and not everytime the code changes
     setOutput(JSON.stringify(run_tscript(value || ""), null, 2));
-    console.log("output:", output);
   };
   return (
     <div className="h-screen bg-[#24273a]">
