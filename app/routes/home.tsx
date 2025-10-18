@@ -102,12 +102,35 @@ function formatOutput(output: string): string {
   if (output == "") return "";
   let object = JSON.parse(output);
   let result = "";
+  if (output.length === 0) return "";
+  try {
+    if (object[0].hasOwnProperty("type")) {
+      if (object[0].type === "compile error") {
+        return formatError(output);
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
 
   for (let i in object) {
     result += object[i].value;
     result += "\n";
   }
 
+  return result;
+}
+
+function formatError(output: string): string {
+  let result = "Error: ";
+  if (output == "") return "";
+  let object = JSON.parse(output);
+  console.log("error object: ", object[0]);
+  for (let i in object) {
+    result += "Line " + object[i].line + ": ";
+    result += object[i].message;
+    result += "\n";
+  }
   return result;
 }
 
@@ -119,6 +142,9 @@ export default function Home() {
 
   const handleEditorChange = (value: any) => {
     setCode(value);
+    console.log(value);
+    let result = JSON.stringify(run_tscript(value || ""));
+    //TODO: Interpret smart and not everytime the code changes
     setOutput(JSON.stringify(run_tscript(value || ""), null, 2));
     console.log("output:", output);
   };
@@ -140,9 +166,11 @@ export default function Home() {
       {turtle && (
         <div className="fixed top-26 right-12 w-[800px] bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"></div>
       )}
-      <div className="fixed right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] p-4 text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
-        {formatOutput(output) === "undefined\n" ? (
-          <div className="text-[1.25rem] font-bold text-[#f38ba8]">Error</div>
+      <div className="fixed whitespace-pre-line right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] p-4 text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
+        {formatOutput(output).startsWith("Error") ? (
+          <div className="text-[1.25rem] font-bold text-[#f38ba8]">
+            {formatError(output)}
+          </div>
         ) : (
           formatOutput(output)
         )}
