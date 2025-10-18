@@ -1,139 +1,18 @@
 import type { Route } from "./+types/home";
 import { Editor } from "@monaco-editor/react";
-import { loader } from "@monaco-editor/react";
 import { useRef, useState } from "react";
-import { languageDefinition, languageConfig } from "../languageDefinition";
 import { run_tscript } from "~/runTscript";
 import { useLocalStorage, downloadCode, useUpload } from "~/codeSaving";
 import { useNavBar } from "../components/NavBarContext";
 import { useEffect } from "react";
-import { canvasTurtle } from "~/canvasTurtle";
+import { handleEditorWillMount } from "../monacoSetup";
+import { formatOutput, formatError } from "../outputFormatting";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
   ];
-}
-
-function handleEditorWillMount(monaco: any) {
-  monaco.editor.defineTheme("catppuccin", {
-    base: "vs-dark", // dark base
-    inherit: true,
-    rules: [
-      { token: "comment", foreground: "8087a2", fontStyle: "italic" }, // overlay1
-      { token: "keyword", foreground: "c6a0f6", fontStyle: "bold" }, // mauve
-      { token: "number", foreground: "f5a97f" }, // peach
-      { token: "string", foreground: "a6da95" }, // green
-      { token: "variable", foreground: "cad3f5" }, // text (bright)
-      { token: "type", foreground: "8aadf4" }, // blue
-      { token: "delimiter", foreground: "939ab7" }, // overlay2
-      { token: "invalid", foreground: "ed8796" }, // red
-      // Add more token-specific rules as needed
-    ],
-    colors: {
-      "editor.background": "#24273a", // base :contentReference[oaicite:1]{index=1}
-      "editor.foreground": "#cad3f5", // text :contentReference[oaicite:2]{index=2}
-      "editorCursor.foreground": "#f4dbd6", // rosewater :contentReference[oaicite:3]{index=3}
-      "editor.lineHighlightBackground": "#1e2030", // mantle :contentReference[oaicite:4]{index=4}
-      "editor.selectionBackground": "#494d64", // surface1 :contentReference[oaicite:5]{index=5}
-      "editor.inactiveSelectionBackground": "#363a4f", // surface0 :contentReference[oaicite:6]{index=6}
-      "editorIndentGuide.background": "#6e738d", // overlay0 :contentReference[oaicite:7]{index=7}
-      "editorIndentGuide.activeBackground": "#8087a2", // overlay1 :contentReference[oaicite:8]{index=8}
-      "editorLineNumber.foreground": "#a5adcb", // subtext0 :contentReference[oaicite:9]{index=9}
-      "editorLineNumber.activeForeground": "#cad3f5", // text :contentReference[oaicite:10]{index=10}
-    },
-  });
-  monaco.editor.setTheme("catppuccin");
-  monaco.languages.register({ id: "tscript" });
-  monaco.languages.setMonarchTokensProvider("tscript", languageDefinition);
-  monaco.languages.setLanguageConfiguration("tscript", languageConfig);
-  monaco.languages.registerCompletionItemProvider("tscript", {
-    provideCompletionItems: (model: any, position: any) => {
-      const suggestions = [
-        // Keywords
-        ...[
-          "var",
-          "function",
-          "class",
-          "if",
-          "else",
-          "for",
-          "while",
-          "do",
-          "return",
-          "break",
-          "continue",
-          "try",
-          "catch",
-          "throw",
-          "namespace",
-          "use",
-          "from",
-          "constructor",
-          "static",
-          "public",
-          "private",
-          "protected",
-          "super",
-          "this",
-          "true",
-          "false",
-          "null",
-          "and",
-          "or",
-          "not",
-          "xor",
-          "then",
-        ].map((keyword) => ({
-          label: keyword,
-          kind: monaco.languages.CompletionItemKind.Keyword,
-          insertText: keyword,
-        })),
-      ];
-
-      return { suggestions };
-    },
-  });
-}
-
-function formatOutput(output: string, canvasRef: HTMLCanvasElement): string {
-  if (output == "") return "";
-  let object = JSON.parse(output);
-  let result = "";
-  if (output.length === 0) return "";
-  try {
-    if (object[0].hasOwnProperty("type")) {
-      if (object[0].type === "compile error") {
-        return formatError(output);
-      }
-    }
-  } catch (e) {
-    console.log(e);
-  }
-
-  for (let i in object) {
-    if (object[i].type.startsWith("turtle")) {
-      canvasTurtle(canvasRef, object[i]);
-      continue;
-    }
-    result += object[i].value;
-    result += "\n";
-  }
-
-  return result;
-}
-
-function formatError(output: string): string {
-  let result = "Error: ";
-  if (output == "") return "";
-  let object = JSON.parse(output);
-  for (let i in object) {
-    result += "Line " + object[i].line + ": ";
-    result += object[i].message;
-    result += "\n";
-  }
-  return result;
 }
 
 export default function Home() {
