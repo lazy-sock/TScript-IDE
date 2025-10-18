@@ -1,52 +1,100 @@
 import { useNavBar } from "./NavBarContext";
+import { use, useEffect, useRef, useState } from "react";
 
 export const NavBar = () => {
   const { onNavClick } = useNavBar();
+  const [font, setFont] = useState(false);
+  const [fontvalue, setFontvalue] = useState(14);
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    onNavClick?.("fontsize: " + fontvalue);
+  }, [font]);
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // optional: prevents e.g. form submit or default behaviour
+      setFont(false);
+    }
+  };
   return (
     <div className="z-10 fixed bg-[#181926] border-4 rounded h-14 justify-center gap-6 items-center flex border-black top-4 left-4 right-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-4">
       <div className="text-[1.5rem] font-bold mr-auto">Tscript</div>
-      <button className="border-3 shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#eed49f] rounded-md border-[#11111b] w-[35px] h-[35px] cursor-pointer flex justify-center items-center">
-        <svg
-          width="24px"
-          height="24px"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          color="#000000"
+      <div className="border-3 transition-all gap-2 shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#eed49f] rounded-md border-[#11111b] h-[35px] flex items-center">
+        {font ? (
+          <input
+            type="text"
+            pattern="[0-9]*"
+            value={fontvalue}
+            onKeyDown={handleKeyDown}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val === "") {
+                setFontvalue(0); // or maybe set to `null` or some default
+              } else {
+                const num = parseInt(val, 10);
+                if (!Number.isNaN(num)) {
+                  setFontvalue(num);
+                }
+                // (or handle invalid case)
+              }
+            }}
+            ref={inputRef}
+            className="w-[50px] text-[#11111b] text-center"
+          />
+        ) : null}
+        <button
+          onClick={() => {
+            setFont(!font);
+            inputRef.current?.focus();
+          }}
+          className="flex justify-center items-center w-[35px] h-[35px] cursor-pointer"
         >
-          <path
-            d="M3 7L3 5L17 5V7"
-            stroke="#000000"
+          <svg
+            width="24px"
+            height="24px"
+            viewBox="0 0 24 24"
             stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M10 5L10 19M10 19H12M10 19H8"
-            stroke="#000000"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M13 14L13 12H21V14"
-            stroke="#000000"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M17 12V19M17 19H15.5M17 19H18.5"
-            stroke="#000000"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-        </svg>
-      </button>
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            color="#000000"
+          >
+            <path
+              d="M3 7L3 5L17 5V7"
+              stroke="#000000"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+            <path
+              d="M10 5L10 19M10 19H12M10 19H8"
+              stroke="#000000"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+            <path
+              d="M13 14L13 12H21V14"
+              stroke="#000000"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+            <path
+              d="M17 12V19M17 19H15.5M17 19H18.5"
+              stroke="#000000"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+        </button>
+      </div>
 
-      <button className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#ed8796] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center">
+      <button
+        onClick={() => {
+          onNavClick?.("git");
+        }}
+        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#ed8796] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
@@ -57,7 +105,10 @@ export const NavBar = () => {
         </svg>
       </button>
 
-      <button className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#7dc4e4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center">
+      <button
+        onClick={() => onNavClick?.("save")}
+        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#7dc4e4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
@@ -67,7 +118,10 @@ export const NavBar = () => {
           <path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-242.7c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32L64 32zm32 96c0-17.7 14.3-32 32-32l160 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-160 0c-17.7 0-32-14.3-32-32l0-64zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
         </svg>
       </button>
-      <button className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#8aadf4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center">
+      <button
+        onClick={() => onNavClick?.("upload")}
+        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#8aadf4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 384 512"

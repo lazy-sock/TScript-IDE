@@ -4,7 +4,7 @@ import { loader } from "@monaco-editor/react";
 import { useState } from "react";
 import { languageDefinition, languageConfig } from "../languageDefinition";
 import { run_tscript } from "~/runTscript";
-import { useLocalStorage } from "~/codeSaving";
+import { useLocalStorage, downloadCode, useUpload } from "~/codeSaving";
 import { useNavBar } from "../components/NavBarContext";
 import { useEffect } from "react";
 
@@ -137,13 +137,33 @@ function formatError(output: string): string {
 }
 
 export default function Home() {
+  const { triggerUpload } = useUpload();
   const { setOnNavClick } = useNavBar();
 
   useEffect(() => {
-    const handler = (action: string) => {
+    const handler = async (action: string) => {
       console.log("Home received action:", action);
       if (action === "turtle") {
         setTurtle((prev) => !prev);
+      } else if (action === "save") {
+        console.log(code);
+        downloadCode("code", code, "application/tscript");
+      } else if (action === "upload") {
+        try {
+          const { filename, content } = await triggerUpload();
+          console.log("Uploaded file:", filename);
+          console.log("File content:", content);
+          setCode(content);
+        } catch (err) {
+          console.error("Upload failed:", err);
+        }
+      } else if (action.startsWith("fontsize: ")) {
+        const sizeStr = action.split("fontsize: ")[1];
+        const size = parseInt(sizeStr, 10);
+        if (!isNaN(size)) {
+          setFontsize(size);
+          console.log("asdf", size);
+        }
       }
     };
 
@@ -151,7 +171,6 @@ export default function Home() {
 
     return () => setOnNavClick(() => {}); // cleanup on unmount
   }, [setOnNavClick]);
-
   const [code, setCode] = useLocalStorage("code", "");
   const [output, setOutput] = useState("");
   const [turtle, setTurtle] = useState(false);
@@ -177,7 +196,7 @@ export default function Home() {
         theme="catppuccin"
         options={{
           minimap: { enabled: false },
-          fontSize: 14,
+          fontSize: fontsize,
         }}
       />
       {turtle && (
