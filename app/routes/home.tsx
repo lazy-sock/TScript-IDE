@@ -10,8 +10,11 @@ import { formatOutput, formatError } from "../outputFormatting";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "TScript IDE" },
+    {
+      name: "description",
+      content: "TScript IDE based on the monaco-editor (like vs-code)",
+    },
   ];
 }
 
