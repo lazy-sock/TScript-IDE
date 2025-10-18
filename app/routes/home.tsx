@@ -1,12 +1,13 @@
 import type { Route } from "./+types/home";
 import { Editor } from "@monaco-editor/react";
 import { loader } from "@monaco-editor/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { languageDefinition, languageConfig } from "../languageDefinition";
 import { run_tscript } from "~/runTscript";
 import { useLocalStorage, downloadCode, useUpload } from "~/codeSaving";
 import { useNavBar } from "../components/NavBarContext";
 import { useEffect } from "react";
+import { canvasTurtle } from "~/canvasTurtle";
 
 console.log("Editor is:", Editor);
 console.log("Type:", typeof Editor);
@@ -99,7 +100,7 @@ function handleEditorWillMount(monaco: any) {
   });
 }
 
-function formatOutput(output: string): string {
+function formatOutput(output: string, canvasRef: HTMLCanvasElement): string {
   console.log(output);
   if (output == "") return "";
   let object = JSON.parse(output);
@@ -116,6 +117,10 @@ function formatOutput(output: string): string {
   }
 
   for (let i in object) {
+    if (object[i].type.startsWith("turtle")) {
+      canvasTurtle(canvasRef, object[i]);
+      continue;
+    }
     result += object[i].value;
     result += "\n";
   }
@@ -139,6 +144,9 @@ function formatError(output: string): string {
 export default function Home() {
   const { triggerUpload } = useUpload();
   const { setOnNavClick } = useNavBar();
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctx = canvasRef.current?.getContext("2d");
 
   useEffect(() => {
     const handler = async (action: string) => {
@@ -197,18 +205,23 @@ export default function Home() {
         options={{
           minimap: { enabled: false },
           fontSize: fontsize,
+          formatOnPaste: true,
+          formatOnType: true,
         }}
       />
       {turtle && (
-        <div className="fixed top-26 right-12 w-[800px] bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"></div>
+        <canvas
+          ref={canvasRef}
+          className="fixed top-26 right-12 w-[800px] bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+        ></canvas>
       )}
       <div className="fixed whitespace-pre-line right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] p-4 text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
-        {formatOutput(output).startsWith("Error") ? (
+        {formatOutput(output, canvasRef.current!).startsWith("Error") ? (
           <div className="text-[1.25rem] font-bold text-[#f38ba8]">
             {formatError(output)}
           </div>
         ) : (
-          formatOutput(output)
+          formatOutput(output, canvasRef.current!)
         )}
       </div>
     </div>
