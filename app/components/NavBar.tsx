@@ -1,4 +1,7 @@
+import { useNavBar } from "./NavBarContext";
+
 export const NavBar = () => {
+  const { onNavClick } = useNavBar();
   return (
     <div className="z-10 fixed bg-[#181926] border-4 rounded h-14 justify-center gap-6 items-center flex border-black top-4 left-4 right-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-4">
       <div className="text-[1.5rem] font-bold mr-auto">Tscript</div>
@@ -74,7 +77,10 @@ export const NavBar = () => {
           <path d="M64 0C28.7 0 0 28.7 0 64l0 240 182.1 0-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-182.1 0 0 96c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-277.5c0-17-6.7-33.3-18.7-45.3L258.7 18.7C246.7 6.7 230.5 0 213.5 0L64 0zM325.5 176L232 176c-13.3 0-24-10.7-24-24L208 58.5 325.5 176z" />
         </svg>
       </button>
-      <button className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#a6da95] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center">
+      <button
+        onClick={() => onNavClick?.("turtle")}
+        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#a6da95] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 32 32"

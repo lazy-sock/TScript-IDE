@@ -10,6 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { NavBar } from "./components/NavBar";
+import { useState } from "react";
+import { NavBarContext } from "./components/NavBarContext";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -34,7 +36,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <NavBar />
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -44,7 +45,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const [onNavClick, setOnNavClick] = useState<
+    ((action: string) => void) | undefined
+  >();
+  return (
+    <NavBarContext.Provider value={{ onNavClick, setOnNavClick }}>
+      <NavBar />
+      <Outlet />
+    </NavBarContext.Provider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

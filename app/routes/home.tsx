@@ -5,6 +5,8 @@ import { useState } from "react";
 import { languageDefinition, languageConfig } from "../languageDefinition";
 import { run_tscript } from "~/runTscript";
 import { useLocalStorage } from "~/codeSaving";
+import { useNavBar } from "../components/NavBarContext";
+import { useEffect } from "react";
 
 console.log("Editor is:", Editor);
 console.log("Type:", typeof Editor);
@@ -135,6 +137,21 @@ function formatError(output: string): string {
 }
 
 export default function Home() {
+  const { setOnNavClick } = useNavBar();
+
+  useEffect(() => {
+    const handler = (action: string) => {
+      console.log("Home received action:", action);
+      if (action === "turtle") {
+        setTurtle((prev) => !prev);
+      }
+    };
+
+    setOnNavClick(() => handler);
+
+    return () => setOnNavClick(() => {}); // cleanup on unmount
+  }, [setOnNavClick]);
+
   const [code, setCode] = useLocalStorage("code", "");
   const [output, setOutput] = useState("");
   const [turtle, setTurtle] = useState(false);
