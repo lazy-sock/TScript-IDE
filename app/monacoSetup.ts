@@ -70,4 +70,53 @@ export function handleEditorWillMount(monaco: any) {
       return { suggestions } as any;
     },
   });
+
+  monaco.languages.registerHoverProvider("tscript", {
+    provideHover: (model: any, position: any) => {
+      const word = model.getWordAtPosition(position);
+      if (!word) return null;
+
+      // Combine all your completion items
+      const allItems = [
+        ...core({
+          startLineNumber: 0,
+          endLineNumber: 0,
+          startColumn: 0,
+          endColumn: 0,
+        }),
+        ...math({
+          startLineNumber: 0,
+          endLineNumber: 0,
+          startColumn: 0,
+          endColumn: 0,
+        }),
+        ...turtle({
+          startLineNumber: 0,
+          endLineNumber: 0,
+          startColumn: 0,
+          endColumn: 0,
+        }),
+        ...canvas({
+          startLineNumber: 0,
+          endLineNumber: 0,
+          startColumn: 0,
+          endColumn: 0,
+        }),
+        ...audio({
+          startLineNumber: 0,
+          endLineNumber: 0,
+          startColumn: 0,
+          endColumn: 0,
+        }),
+      ];
+
+      // Find matching item
+      const item = allItems.find((i) => i.label === word.word);
+      if (!item?.documentation) return null;
+
+      return {
+        contents: [{ value: item.documentation }],
+      };
+    },
+  });
 }
