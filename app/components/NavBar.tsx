@@ -16,7 +16,7 @@ export const NavBar = () => {
     }
   };
   return (
-    <div className="z-10 fixed bg-[#181926] border-4 rounded h-14 justify-center gap-6 items-center flex border-black top-4 left-4 right-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-4">
+    <div className="z-10 fixed bg-[#181926] border-4 rounded h-14 justify-center gap-6 items-center flex border-black top-4 left-4 right-4 shadow-[4px_4px_0_0_rgba(17,17,27,1)] px-4">
       <div className="text-[1.5rem] font-bold mr-auto">Tscript</div>
       <div className="border-3 transition-all gap-2 shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#eed49f] rounded-md border-[#11111b] h-[35px] flex items-center">
         {font ? (
@@ -46,7 +46,7 @@ export const NavBar = () => {
             setFont(!font);
             inputRef.current?.focus();
           }}
-          className="flex justify-center items-center w-[35px] h-[35px] cursor-pointer"
+          className="flex justify-center items-center group w-[35px] h-[35px] cursor-pointer"
         >
           <svg
             width="24px"
@@ -86,6 +86,9 @@ export const NavBar = () => {
               stroke-linejoin="round"
             ></path>
           </svg>
+          <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#eed49f] hidden group-hover:block">
+            Font Size
+          </div>
         </button>
       </div>
 
@@ -93,7 +96,7 @@ export const NavBar = () => {
         onClick={() => {
           onNavClick?.("git");
         }}
-        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#ed8796] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#ed8796] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -103,11 +106,14 @@ export const NavBar = () => {
         >
           <path d="M439.6 236.1L244 40.5C238.6 35 231.2 32 223.6 32s-15 3-20.4 8.4l-40.7 40.6 51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3l-46.3-46.3 0 121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56l0-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4L204.1 471.6c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4L439.6 276.9c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4z" />
         </svg>
+        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#ed8796] hidden group-hover:block">
+          Git
+        </div>
       </button>
 
       <button
         onClick={() => onNavClick?.("save")}
-        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#7dc4e4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#7dc4e4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -117,10 +123,13 @@ export const NavBar = () => {
         >
           <path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-242.7c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32L64 32zm32 96c0-17.7 14.3-32 32-32l160 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-160 0c-17.7 0-32-14.3-32-32l0-64zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
         </svg>
+        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#7dc4e4] hidden group-hover:block">
+          Export
+        </div>
       </button>
       <button
         onClick={() => onNavClick?.("upload")}
-        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#8aadf4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#8aadf4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -130,10 +139,13 @@ export const NavBar = () => {
         >
           <path d="M64 0C28.7 0 0 28.7 0 64l0 240 182.1 0-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-182.1 0 0 96c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-277.5c0-17-6.7-33.3-18.7-45.3L258.7 18.7C246.7 6.7 230.5 0 213.5 0L64 0zM325.5 176L232 176c-13.3 0-24-10.7-24-24L208 58.5 325.5 176z" />
         </svg>
+        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#8aadf4] hidden group-hover:block">
+          Import
+        </div>
       </button>
       <button
         onClick={() => onNavClick?.("turtle")}
-        className="border-3 shadow-[3px_3px_0_0_rgba(0,0,0,1)] bg-[#a6da95] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#a6da95] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -147,6 +159,22 @@ export const NavBar = () => {
             font-family="Sans"
           />
         </svg>
+        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#a6da95] hidden group-hover:block">
+          Turtle
+        </div>
+      </button>
+      <button className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#c6a0f6] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center">
+        <svg
+          width={24}
+          height={24}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+        >
+          <path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zm64 80a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM272 224c8.4 0 16.1 4.4 20.5 11.5l88 144c4.5 7.4 4.7 16.7 .5 24.3S368.7 416 360 416L88 416c-8.9 0-17.2-5-21.3-12.9s-3.5-17.5 1.6-24.8l56-80c4.5-6.4 11.8-10.2 19.7-10.2s15.2 3.8 19.7 10.2l26.4 37.8 61.4-100.5c4.4-7.1 12.1-11.5 20.5-11.5z" />
+        </svg>
+        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#c6a0f6] hidden group-hover:block">
+          Canvas
+        </div>
       </button>
     </div>
   );
