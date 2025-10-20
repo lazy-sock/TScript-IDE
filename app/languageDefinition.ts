@@ -463,7 +463,295 @@ export const turtle = (range: any) => [
     range: range,
   },
 ];
-export const canvas = (range: any) => [];
+export const canvas = (range: any) => [
+  {
+    label: "width",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "width()",
+    documentation: "Returns the current width of the canvas in pixels. ",
+    range: range,
+  },
+  {
+    label: "height",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "height()",
+    documentation: "Returns the current height of the canvas in pixels. ",
+    range: range,
+  },
+  {
+    label: "setLineWidth",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "setLineWidth(${1:width})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sets the line width. The parameter width must be a positive number. ",
+    range: range,
+  },
+  {
+    label: "setLineColor",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "setLineColor(${1:red}, ${2:green}, ${3:blue}, ${4:alpha})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sets the line color. All arguments are in the range 0 to 1. The alpha (opacity) argument is optional, it defaults to 1. ",
+    range: range,
+  },
+  {
+    label: "setFillColor",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "setFillColor(${1:red}, ${2:green}, ${3:blue}, ${4:alpha})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sets the fill color. All arguments are in the range 0 to 1. The alpha (opacity) argument is optional, it defaults to 1. ",
+    range: range,
+  },
+  {
+    label: "setOpacity",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "setOpacity(${1:alpha})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sets a global opacity (alpha) value for all drawing operations. A value of 0 means that operations are fully transparent and hence have no effect, while a value of 1 means that drawing is fully opaque. ",
+    range: range,
+  },
+  {
+    label: "setFont",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "setFont(${1:fontface}, ${2:fontsize})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sets the current font. The fontface is a string, it must correspond to a font existing on the system. The fontsize is defined in pixels, it must be a positive number. The default font is a 16px Helvetica font. ",
+    range: range,
+  },
+  {
+    label: "setTextAlign",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "setTextAlign(${1:alignment})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sets the text alignment. Possible values are 'left' (the default), 'center', and 'right'. The position given in text drawing commands is relative to the alignment. ",
+    range: range,
+  },
+  {
+    label: "getPixel",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "getPixel(${1:x}, ${2:y})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the 'raw' pixel value as an array of four numbers, encoding the RGBA color value. Each component (red, green, blue, and alpha) is an integer in the range 0 to 255. This is the format in which the color information is stored in the graphics hardware. ",
+    range: range,
+  },
+  {
+    label: "setPixel",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "setPixel(${1:x}, ${2:y}, ${3:data})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sets a raw pixel value. The data argument is an array of four integers with the same meaning as the return value of getPixel. ",
+    range: range,
+  },
+  {
+    label: "clear",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "clear()",
+    documentation:
+      "	The function clear() erases all drawn content by filling the entire canvas with the current fill color. It also resets the transformation (see function reset() below). ",
+    range: range,
+  },
+  {
+    label: "line",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "line(${1:x1}, ${2:y1}, ${3:x2}, ${4:y2})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Draws a line from (x1, y1) to (x2, y2) using the current line width and line color. ",
+    range: range,
+  },
+  {
+    label: "rect",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "rect(${1:x}, ${2:y}, ${3:width}, ${4:height})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Draws the outline of a rectangle with the current line width and line color. ",
+    range: range,
+  },
+  {
+    label: "fillRect",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "fillRect(${1:x}, ${2:y}, ${3:width}, ${4:height})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Fills a rectangle with the current fill color. ",
+    range: range,
+  },
+  {
+    label: "frameRect",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "frameRect(${1:x}, ${2:y}, ${3:width}, ${4:height})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Fills a rectangle with the current fill color and draws the outline with the current line color and line width. ",
+    range: range,
+  },
+  {
+    label: "circle",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "circle(${1:x}, ${2:y}, ${3:radius})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Draws the outline of a circle with the current line width and line color. ",
+    range: range,
+  },
+  {
+    label: "fillCircle",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "fillCircle(${1:x}, ${2:y}, ${3:radius})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Fills a circle with the current fill color. ",
+    range: range,
+  },
+  {
+    label: "frameCircle",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "frameCircle(${1:x}, ${2:y}, ${3:radius})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Fills a circle with the current fill color and draws the outline with the current line color and line width. ",
+    range: range,
+  },
+  {
+    label: "curve",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "curve(${1:points}, ${2:closed})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Draws a polygon given by the array points, each entry of which is an array containing (x, y) coordinates. For example, the array [[100, 100], [200, 100], [100, 200]] specifies a curve consisting of two lines (three lines forming a triangle if the curve is closed), connecting the points (100, 100), (200, 100), and (100, 200). If the optional argument closed is set to true then the first and the last point are connected, resulting in a closed polygon. The curve is drawn with the current line width and line color. ",
+    range: range,
+  },
+  {
+    label: "fillArea",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "fillArea(${1:points})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Fills the closed polygon given by points (see function curve) with the current fill color, and then draws the polygon outline with the given line color and line width. ",
+    range: range,
+  },
+  {
+    label: "frameArea",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "frameArea(${1:points})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Fills the closed polygon given by points (see function curve) with the current fill color, and then draws the polygon outline with the given line color and line width. ",
+    range: range,
+  },
+  {
+    label: "text",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "text(${1:x}, ${2:y}, ${3:str})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Draws the string str at position (x, y), relative to the current text alignment, using the current font and fill color. ",
+    range: range,
+  },
+  {
+    label: "paintImage",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "paintImage(${1:x}, ${2:y}, ${3:source})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Draws an image source at position (x, y). The source can be a canvas.Bitmap object or null. In the latter case, the current canvas is drawn. ",
+    range: range,
+  },
+  {
+    label: "paintImageSection",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText:
+      "paintImage(${1:dx}, ${2:dy}, ${3:dw}, ${d4:dh}, ${5:source}, ${6:sx}, ${7:sy}, ${8:sw}, ${9:sh})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Draws a section of the image source specified by the rectangle (sx, sy, sw, sh) into the rectangle specified by (dx, dy, dw, dh) on the target canvas. The source can be a canvas.Bitmap object or null. In the latter case, a section from the current canvas is drawn. ",
+    range: range,
+  },
+  {
+    label: "reset",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "reset()",
+    documentation:
+      "Resets the current transformation. Afterwards the origin of the coordinate system is the top left corner, with axes extending to the right and to the bottom. ",
+    range: range,
+  },
+  {
+    label: "shift",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "shift(${1:dx}, ${2:dy})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Translates the origin of the coordinate system by the vector (dx, dy).",
+  },
+  {
+    label: "scale",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "scale(${1:factor})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Scales the coordinate system by the given factor. ",
+    range: range,
+  },
+  {
+    label: "rotate",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "rotate(${1:angle})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Rotates the coordinate system clockwise by the given angle. The angle is given in radians, i.e., a full rotation corresponds to the angle 2 * math.pi(). ",
+    range: range,
+  },
+  {
+    label: "transform",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "transform(${1:A}, ${2:b})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Transforms coordinates (x, y) into new coordinates A (x, y) + b, where A is the 2x2 matrix [[A11, A12], [A21, A22]] and b is the vector [b1, b2]. ",
+    range: range,
+  },
+  {
+    label: "Bitmap",
+    kind: monaco.languages.CompletionItemKind.Class,
+    insertText: "Bitmap(${1:resourceOrWidth}, ${2:height})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Constructs a bitmap (image) object. The parameter resourceOrWidth is either a resource string containing a data URI, or an integer specifying the width. The height parameter is relevant only in the latter case. The constructor creates a bitmap image with the given content, or of the given dimensions. A bitmap created from dimensions is initially transparent black. ",
+    range: range,
+  },
+];
 export const audio = (range: any) => [
   {
     label: "Sound",
