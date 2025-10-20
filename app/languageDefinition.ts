@@ -150,13 +150,14 @@ export const languageConfig = {
   ],
 };
 
-export const core = [
+export const core = (range: any) => [
   {
     label: "terminate",
     kind: monaco.languages.CompletionItemKind.Function,
     insertText: "terminate()",
     documentation:
       "Immediately terminates the program. This is considered normal termination.",
+    range: range,
   },
   {
     label: "assert",
@@ -166,6 +167,7 @@ export const core = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Tests whether condition evaluates to false. Stops program and emits message if condition fails.",
+    range: range,
   },
   {
     label: "error",
@@ -174,6 +176,7 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Stops the program and emits message as an error message.",
+    range: range,
   },
   {
     label: "same",
@@ -182,6 +185,7 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Tests whether its arguments refer to the same object.",
+    range: range,
   },
   {
     label: "version",
@@ -189,6 +193,7 @@ export const core = [
     insertText: "version()",
     documentation:
       "Returns a dictionary describing the current TScript version.",
+    range: range,
   },
   {
     label: "print",
@@ -197,6 +202,7 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Outputs its argument as a new line into the message area.",
+    range: range,
   },
   {
     label: "alert",
@@ -205,6 +211,7 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Opens a modal message box presenting the text to the user.",
+    range: range,
   },
   {
     label: "confirm",
@@ -214,6 +221,7 @@ export const core = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Opens a modal message box with confirm/cancel options. Returns true if confirmed, false if canceled.",
+    range: range,
   },
   {
     label: "prompt",
@@ -223,6 +231,7 @@ export const core = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Opens a modal message box where user can input a string. Returns the input string or null.",
+    range: range,
   },
   {
     label: "wait",
@@ -231,6 +240,7 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Delays program execution for ms milliseconds.",
+    range: range,
   },
   {
     label: "time",
@@ -238,6 +248,7 @@ export const core = [
     insertText: "time()",
     documentation:
       "Returns the number of milliseconds since midnight 01.01.1970 UTC.",
+    range: range,
   },
   {
     label: "localtime",
@@ -245,6 +256,7 @@ export const core = [
     insertText: "localtime()",
     documentation:
       "Returns the number of milliseconds since midnight 01.01.1970 in local time.",
+    range: range,
   },
   {
     label: "exists",
@@ -254,6 +266,7 @@ export const core = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Returns true if a value was stored with the given key, false otherwise.",
+    range: range,
   },
   {
     label: "load",
@@ -262,6 +275,7 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Returns the value that was stored with the given key.",
+    range: range,
   },
   {
     label: "save",
@@ -270,12 +284,14 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Stores the value with the given key to persistent storage.",
+    range: range,
   },
   {
     label: "listKeys",
     kind: monaco.languages.CompletionItemKind.Function,
     insertText: "listKeys()",
     documentation: "Returns an array containing the keys to all stored values.",
+    range: range,
   },
   {
     label: "deepcopy",
@@ -284,6 +300,7 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Creates a deep copy of a container.",
+    range: range,
   },
   {
     label: "setEventHandler",
@@ -292,12 +309,14 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Sets an event handler for a named event.",
+    range: range,
   },
   {
     label: "enterEventMode",
     kind: monaco.languages.CompletionItemKind.Function,
     insertText: "enterEventMode()",
     documentation: "Puts the program into event handling mode.",
+    range: range,
   },
   {
     label: "quitEventMode",
@@ -306,20 +325,23 @@ export const core = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Puts the program back into normal processing mode.",
+    range: range,
   },
 ];
-export const math = [
+export const math = (range: any) => [
   {
     label: "pi",
     kind: monaco.languages.CompletionItemKind.Function,
     insertText: "pi()",
     documentation: "Returns the constant pi.",
+    range: range,
   },
   {
     label: "e",
     kind: monaco.languages.CompletionItemKind.Function,
     insertText: "e()",
     documentation: "Returns the constant e.",
+    range: range,
   },
   {
     label: "abs",
@@ -329,6 +351,7 @@ export const math = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Returns the absolute value of its argument. For an integer argument the result is of type integer. The function overflows only for the value -2147483648.",
+    range: range,
   },
   {
     label: "sqrt",
@@ -337,6 +360,7 @@ export const math = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Returns the square root of its argument.",
+    range: range,
   },
   {
     label: "cbrt",
@@ -345,6 +369,7 @@ export const math = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Returns the cube root of its argument.",
+    range: range,
   },
   {
     label: "floor",
@@ -354,6 +379,7 @@ export const math = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Returns the argument rounded down, i.e., the closest integer not larger than x. Although the return value is an integer, it is of type Real to avoid integer overflow. ",
+    range: range,
   },
   {
     label: "round",
@@ -363,6 +389,7 @@ export const math = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Returns the argument rounded to the nearest integer. Although the return value is an integer, it is of type Real to avoid integer overflow. ",
+    range: range,
   },
   {
     label: "ceil",
@@ -372,6 +399,7 @@ export const math = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Returns the argument rounded up, i.e., the closest integer not smaller than x. Although the return value is an integer, it is of type Real to avoid integer overflow. Returns the argument rounded up, i.e., the closest integer not smaller than x. Although the return value is an integer, it is of type Real to avoid integer overflow. ",
+    range: range,
   },
   {
     label: "sin",
@@ -380,9 +408,10 @@ export const math = [
     insertTextRules:
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation: "Returns the sine of its argument in radians. ",
+    range: range,
   },
 ];
-export const turtle = [
+export const turtle = (range: any) => [
   {
     label: "reset",
     kind: monaco.languages.CompletionItemKind.Function,
@@ -391,6 +420,7 @@ export const turtle = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Places the turtle at position (x, y) on its drawing area. Its orientation is given by degrees, the color is set to black, and the pen is active if down is true. Using this function for actual drawing is considered improper use, or 'cheating', since this operation is not available to an actual robot. The intended use is to initialize the turtle in a different position than the center. ",
+    range: range,
   },
   {
     label: "move",
@@ -400,6 +430,7 @@ export const turtle = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Moves the turtle forward by the given distance, or backward if the distance is negative. If the pen is down in this state then a line is drawn. ",
+    range: range,
   },
   {
     label: "turn",
@@ -409,6 +440,7 @@ export const turtle = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Rotates the turtle clockwise, where 360 degrees are one full rotation. A negative angle corresponds to a counter-clockwise rotation. ",
+    range: range,
   },
   {
     label: "color",
@@ -418,6 +450,7 @@ export const turtle = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Sets the color of the pen, defined by red, green and blue components. All values are clipped to the range [0, 1]. ",
+    range: range,
   },
   {
     label: "pen",
@@ -427,10 +460,11 @@ export const turtle = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Lifts the pen if down is false and lowers the pen if down is true. ",
+    range: range,
   },
 ];
-export const canvas = [];
-export const audio = [
+export const canvas = (range: any) => [];
+export const audio = (range: any) => [
   {
     label: "Sound",
     kind: monaco.languages.CompletionItemKind.Class,
@@ -439,6 +473,7 @@ export const audio = [
       monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
     documentation:
       "Constructs a sound sample object. The parameter buffers is an array of arrays containing the samples to be played, or a string containing a data URI. The second parameter sampleRate specifies the rate at which the array samples are to be played in Hz. The sample rate should be in the range 8000 Hz to 96000 Hz. If the first parameter is a data URI, then the sample rate is ignored. Typical channel numbers are one (mono) and two (stereo). ",
+    range: range,
   },
   {
     label: "play",
@@ -446,6 +481,7 @@ export const audio = [
     insertText: "play()",
     documentation:
       "Starts playing the sound. The playback is asynchronous, meaning that the call returns immediately regardless of sound duration. Further instances of the sound can be played by calling the function again, even while the sound is still playing. ",
+    range: range,
   },
   {
     label: "startLoop",
@@ -453,6 +489,7 @@ export const audio = [
     insertText: "startLoop()",
     documentation:
       "Starts playing the sound in a loop. The playback is asynchronous, meaning that the call returns immediately regardless of sound duration. Further instances of the sound can be played by calling the function again, even while the sound is still playing. ",
+    range: range,
   },
   {
     label: "stopLoop",
@@ -460,6 +497,7 @@ export const audio = [
     insertText: "stopLoop()",
     documentation:
       "Stops a sound loop that was previously started with startLoop. ",
+    range: range,
   },
   {
     label: "looping",
@@ -467,26 +505,35 @@ export const audio = [
     insertText: "looping()",
     documentation:
       "Returns true if the sound loop is currently running, and otherwise false. ",
+    range: range,
   },
 ];
 
 export function registerCompletionItemProvider() {
   return monaco.languages.registerCompletionItemProvider("tscript", {
     provideCompletionItems: (model: any, position: any) => {
+      const word = model.getWordUntilPosition(position);
+      const range = {
+        startLineNumber: position.lineNumber,
+        endLineNumber: position.lineNumber,
+        startColumn: word.startColumn,
+        endColumn: word.endColumn,
+      };
       const suggestionskeywords = languageDefinition.keywords.map(
         (keyword) => ({
           label: keyword,
           kind: monaco.languages.CompletionItemKind.Keyword,
           insertText: keyword,
+          range: range,
         }),
       );
       const suggestions = [
         ...suggestionskeywords,
-        ...core,
-        ...math,
-        ...turtle,
-        ...canvas,
-        ...audio,
+        ...core(range),
+        ...math(range),
+        ...turtle(range),
+        ...canvas(range),
+        ...audio(range),
       ];
 
       return { suggestions: suggestions } as any;

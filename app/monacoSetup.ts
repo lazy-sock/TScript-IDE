@@ -1,3 +1,4 @@
+import { start } from "repl";
 import {
   languageDefinition,
   languageConfig,
@@ -42,20 +43,28 @@ export function handleEditorWillMount(monaco: any) {
 
   monaco.languages.registerCompletionItemProvider("tscript", {
     provideCompletionItems: (model: any, position: any) => {
+      const word = model.getWordUntilPosition(position);
+      const range = {
+        startLineNumber: position.lineNumber,
+        endLineNumber: position.lineNumber,
+        startColumn: word.startColumn,
+        endColumn: word.endColumn,
+      };
       const suggestionskeywords = languageDefinition.keywords.map(
         (keyword) => ({
           label: keyword,
           kind: monaco.languages.CompletionItemKind.Keyword,
           insertText: keyword,
+          range: range,
         }),
       );
       const suggestions = [
         ...suggestionskeywords,
-        ...core,
-        ...math,
-        ...turtle,
-        ...canvas,
-        ...audio,
+        ...core(range),
+        ...math(range),
+        ...turtle(range),
+        ...canvas(range),
+        ...audio(range),
       ];
 
       return { suggestions } as any;
