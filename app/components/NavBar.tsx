@@ -163,7 +163,10 @@ export const NavBar = () => {
           Turtle
         </div>
       </button>
-      <button className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#c6a0f6] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center">
+      <button
+        onClick={() => onNavClick?.("canvas")}
+        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#c6a0f6] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+      >
         <svg
           width={24}
           height={24}

@@ -23,12 +23,14 @@ export default function Home() {
   const { setOnNavClick } = useNavBar();
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const ctx = canvasRef.current?.getContext("2d");
+  const turtleRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const handler = async (action: string) => {
       if (action === "turtle") {
         setTurtle((prev) => !prev);
+      } else if (action === "canvas") {
+        setCanvas((prev) => !prev);
       } else if (action === "save") {
         downloadCode("code", code, "application/tscript");
       } else if (action === "upload") {
@@ -51,9 +53,11 @@ export default function Home() {
 
     return () => setOnNavClick(() => {}); // cleanup on unmount
   }, [setOnNavClick]);
+
   const [code, setCode] = useLocalStorage("code", "");
   const [output, setOutput] = useState("");
   const [turtle, setTurtle] = useState(false);
+  const [canvas, setCanvas] = useState(false);
   const [fontsize, setFontsize] = useState(14);
 
   const handleEditorChange = (value: any) => {
@@ -62,6 +66,11 @@ export default function Home() {
     //TODO: Interpret smart and not everytime the code changes
     setOutput(JSON.stringify(run_tscript(value || ""), null, 2));
   };
+
+  useEffect(() => {
+    formatOutput(output, turtleRef.current);
+  }, [turtle, output, code]);
+
   return (
     <div className="h-screen bg-[#24273a]">
       <Editor
@@ -79,7 +88,7 @@ export default function Home() {
           formatOnType: true,
         }}
       />
-      {turtle && (
+      {canvas && (
         <canvas
           ref={canvasRef}
           width={800}
@@ -87,13 +96,21 @@ export default function Home() {
           className="fixed z-10 top-26 right-12 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
         ></canvas>
       )}
+      {turtle && (
+        <canvas
+          ref={turtleRef}
+          width={800}
+          height={600}
+          className="fixed z-10 top-26 right-12 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+        ></canvas>
+      )}
       <div className="fixed whitespace-pre-line right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] p-4 text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
-        {formatOutput(output, canvasRef.current).startsWith("Error") ? (
+        {formatOutput(output, turtleRef.current).startsWith("Error") ? (
           <div className="text-[1.25rem] font-bold text-[#f38ba8]">
             {formatError(output)}
           </div>
         ) : (
-          formatOutput(output, canvasRef.current)
+          formatOutput(output, turtleRef.current)
         )}
       </div>
     </div>
