@@ -9,8 +9,6 @@ export function canvasTurtle(
   const width = canvas.width;
   const height = canvas.height;
 
-  ctx.clearRect(0, 0, width, height);
-
   if (input.type === "turtle line") {
     ctx.beginPath();
     ctx.strokeStyle = input.color;

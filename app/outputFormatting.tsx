@@ -1,7 +1,9 @@
 import { canvasTurtle } from "./canvasTurtle";
+import { canvas } from "./canvas";
 
 export function formatOutput(
   output: string,
+  turtleRef: HTMLCanvasElement | null,
   canvasRef: HTMLCanvasElement | null,
 ): string {
   if (output == "") return "";
@@ -18,12 +20,26 @@ export function formatOutput(
     console.log(e);
   }
 
+  //TODO: clear turtle and canvas before drawing new stuff
+  const canvasCtx = canvasRef?.getContext("2d");
+  if (canvasCtx) {
+    canvasCtx.clearRect(0, 0, canvasRef!.width, canvasRef!.height);
+  }
+  const turtleCtx = turtleRef?.getContext("2d");
+  if (turtleCtx) {
+    turtleCtx.clearRect(0, 0, turtleRef!.width, turtleRef!.height);
+  }
+
   for (let i in object) {
+    console.log(object[i]);
     if (object[i].type.startsWith("turtle")) {
-      canvasTurtle(canvasRef, object[i]);
+      canvasTurtle(turtleRef, object[i]);
+      continue;
+    } else if (object[i].type.startsWith("canvas")) {
+      canvas(canvasRef, object[i]);
       continue;
     }
-    result += object[i].value;
+    if (object[i].type) result += object[i].value;
     result += "\n";
   }
 

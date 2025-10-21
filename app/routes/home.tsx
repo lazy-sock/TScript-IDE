@@ -56,6 +56,7 @@ export default function Home() {
 
   const [code, setCode] = useLocalStorage("code", "");
   const [output, setOutput] = useState("");
+  const [formattedOutput, setFormattedOutput] = useState("");
   const [turtle, setTurtle] = useState(false);
   const [canvas, setCanvas] = useState(false);
   const [fontsize, setFontsize] = useState(14);
@@ -68,7 +69,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    formatOutput(output, turtleRef.current);
+    setFormattedOutput(
+      formatOutput(output, turtleRef.current, canvasRef.current),
+    );
   }, [turtle, output, code]);
 
   return (
@@ -105,12 +108,12 @@ export default function Home() {
         ></canvas>
       )}
       <div className="fixed whitespace-pre-line right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] p-4 text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
-        {formatOutput(output, turtleRef.current).startsWith("Error") ? (
+        {formattedOutput.startsWith("Error") ? (
           <div className="text-[1.25rem] font-bold text-[#f38ba8]">
             {formatError(output)}
           </div>
         ) : (
-          formatOutput(output, turtleRef.current)
+          formattedOutput
         )}
       </div>
     </div>
