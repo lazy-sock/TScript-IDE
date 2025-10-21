@@ -30,11 +30,9 @@ export function canvas(
   } else if (input.type === "canvas ellipse curve") {
     let x = input.center![0];
     let y = input.center![1];
-    let shape = input.shape![0];
-    let radiusX = shape[0];
-    let radiusY = shape[1];
+    let radius = input.shape![0][0];
     ctx.beginPath();
-    ctx.ellipse(x, y, radiusX, radiusY, 0, 0, 2 * Math.PI);
+    ctx.ellipse(x, y, Math.sqrt(radius), Math.sqrt(radius), 0, 0, 2 * Math.PI);
     ctx.stroke();
   } else if (input.type === "canvas text") {
     let string = input.str;
@@ -53,7 +51,8 @@ export function canvas(
     let y = input.center![1];
     let radius = input.shape![0][0];
     ctx.beginPath();
-    ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI);
+    ctx.ellipse(x, y, Math.sqrt(radius), Math.sqrt(radius), 0, 0, 2 * Math.PI);
+    ctx.fillStyle = "black";
     ctx.fill();
   } else if (input.type === "canvas line") {
     let x1 = input.from![0];

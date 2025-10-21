@@ -17,7 +17,9 @@ export const NavBar = () => {
   };
   return (
     <div className="z-10 fixed bg-[#181926] border-4 rounded h-14 justify-center gap-6 items-center flex border-black top-4 left-4 right-4 shadow-[4px_4px_0_0_rgba(17,17,27,1)] px-4">
-      <div className="text-[1.5rem] font-bold mr-auto">Tscript</div>
+      <div className="text-[1.5rem] font-bold mr-auto hidden md:block">
+        Tscript
+      </div>
       <div className="border-3 transition-all gap-2 shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#eed49f] rounded-md border-[#11111b] h-[35px] flex items-center">
         {font ? (
           <input
