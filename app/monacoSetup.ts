@@ -22,6 +22,8 @@ export function handleEditorWillMount(monaco: any) {
       { token: "type", foreground: "8aadf4" }, // blue
       { token: "delimiter", foreground: "939ab7" }, // overlay2
       { token: "invalid", foreground: "ed8796" }, // red
+      { token: "turtle", foreground: "a6da95" }, // green
+      { token: "canvas", foreground: "#c6a0f6" }, // mauvre
     ],
     colors: {
       "editor.background": "#24273a", // base
@@ -42,6 +44,7 @@ export function handleEditorWillMount(monaco: any) {
   monaco.languages.setLanguageConfiguration("tscript", languageConfig);
 
   monaco.languages.registerCompletionItemProvider("tscript", {
+    triggerCharacters: ["."],
     provideCompletionItems: (model: any, position: any) => {
       const word = model.getWordUntilPosition(position);
       const range = {
@@ -50,7 +53,16 @@ export function handleEditorWillMount(monaco: any) {
         startColumn: word.startColumn,
         endColumn: word.endColumn,
       };
-      const suggestionskeywords = languageDefinition.keywords.map(
+
+      const lineContent = model.getLineContent(position.lineNumber);
+      const prefix = lineContent.substring(0, position.column - 1);
+
+      function inNamespace(ns: string): boolean {
+        const re = new RegExp(`\\b${ns}\\.\\s*$`);
+        return re.test(prefix);
+      }
+
+      const keywordsSuggestions = languageDefinition.keywords.map(
         (keyword) => ({
           label: keyword,
           kind: monaco.languages.CompletionItemKind.Keyword,
@@ -58,16 +70,24 @@ export function handleEditorWillMount(monaco: any) {
           range: range,
         }),
       );
-      const suggestions = [
-        ...suggestionskeywords,
-        ...core(range),
-        ...math(range),
-        ...turtle(range),
-        ...canvas(range),
-        ...audio(range),
-      ];
 
-      return { suggestions } as any;
+      let suggestions: any = [];
+
+      if (inNamespace("turtle")) {
+        suggestions = [...turtle(range)];
+      } else if (inNamespace("canvas")) {
+        suggestions = [...canvas(range)];
+      } else {
+        // Not inside a “.namespace” context
+        // Provide global suggestions + the core namespace’s functions globally
+        suggestions = [
+          ...keywordsSuggestions,
+          ...core(range),
+          // Possibly other global suggestions
+        ];
+      }
+
+      return { suggestions };
     },
   });
 

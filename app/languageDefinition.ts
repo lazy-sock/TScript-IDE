@@ -68,6 +68,18 @@ export const languageDefinition = {
 
   tokenizer: {
     root: [
+      [
+        /\bturtle\b/,
+        {
+          token: "turtle",
+        },
+      ],
+      [
+        /\bcanvas\b/,
+        {
+          token: "canvas",
+        },
+      ],
       // Identifiers and keywords
       [
         /[a-zA-Z_]\w*/,
