@@ -91,27 +91,43 @@ export default function Home() {
           formatOnType: true,
         }}
       />
-      {canvas && (
-        <canvas
-          ref={canvasRef}
-          width={800}
-          height={600}
-          className="fixed z-10 top-26 right-12 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
-        ></canvas>
-      )}
-      {turtle && (
-        <canvas
-          ref={turtleRef}
-          width={800}
-          height={600}
-          className="fixed z-10 top-26 right-12 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
-        ></canvas>
-      )}
-      <div className="fixed whitespace-pre-line right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] p-4 text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
+      {canvas &&
+        (window.innerWidth > 900 ? (
+          <canvas
+            ref={canvasRef}
+            width={800}
+            height={600}
+            className="fixed z-10 top-26 right-12 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+          ></canvas>
+        ) : (
+          <canvas
+            ref={canvasRef}
+            width={300}
+            height={300}
+            className="fixed z-10 top-26 right-4 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+          ></canvas>
+        ))}
+      {turtle &&
+        (window.innerWidth > 900 ? (
+          <canvas
+            ref={turtleRef}
+            width={800}
+            height={600}
+            className="fixed z-10 top-26 right-12 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+          ></canvas>
+        ) : (
+          <canvas
+            ref={turtleRef}
+            width={300}
+            height={300}
+            className="fixed z-10 top-26 right-4 bottom-[200px] rounded-lg border-4 bg-white border-[#11111b] shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+          ></canvas>
+        ))}
+      <div className="fixed overflow-scroll whitespace-pre-line right-4 bottom-4 left-4 h-[15vh] rounded border-4 border-[#11111b] bg-[#181926] px-2 py-1 sm:px-4 sm:py-2 md:text-[1.25rem] shadow-[4px_4px_0_0_rgba(17,17,27,1)]">
         {formattedOutput.startsWith("Error") ? (
-          <div className="text-[1.25rem] font-bold text-[#f38ba8]">
+          <span className="md:text-[1.25rem] font-bold text-[#f38ba8]">
             {formatError(output)}
-          </div>
+          </span>
         ) : (
           formattedOutput
         )}
