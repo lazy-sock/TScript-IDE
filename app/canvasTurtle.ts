@@ -5,9 +5,12 @@ export function canvasTurtle(
   if (!canvas) return;
   const ctx = canvas.getContext("2d")!;
 
-  // Use actual canvas dimensions (not offset)
   const width = canvas.width;
   const height = canvas.height;
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.translate(0, height);
+  ctx.scale(1, -1); // flip y-axis (TScript turtle works like this for some reason)
 
   if (input.type === "turtle line") {
     ctx.beginPath();
