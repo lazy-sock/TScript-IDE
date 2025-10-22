@@ -24,6 +24,8 @@ export function formatOutput(
   const canvasCtx = canvasRef?.getContext("2d");
   if (canvasCtx) {
     canvasCtx.clearRect(0, 0, canvasRef!.width, canvasRef!.height);
+    canvasCtx.fillStyle = "black";
+    canvasCtx.strokeStyle = "black";
   }
   const turtleCtx = turtleRef?.getContext("2d");
   if (turtleCtx) {

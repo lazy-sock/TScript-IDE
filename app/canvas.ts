@@ -9,6 +9,9 @@ export function canvas(
     to?: Array<number>;
     position?: Array<number>;
     shape?: Array<Array<number>>;
+    r?: number;
+    g?: number;
+    b?: number;
   },
 ) {
   if (!canvas) return;
@@ -52,7 +55,6 @@ export function canvas(
     let radius = input.shape![0][0];
     ctx.beginPath();
     ctx.ellipse(x, y, Math.sqrt(radius), Math.sqrt(radius), 0, 0, 2 * Math.PI);
-    ctx.fillStyle = "black";
     ctx.fill();
   } else if (input.type === "canvas line") {
     let x1 = input.from![0];
@@ -70,5 +72,32 @@ export function canvas(
     let w = points![1][0] - x;
     let h = points![1][1] - y;
     ctx.strokeRect(x, y, w, h);
+  } else if (input.type === "canvas setLineColor") {
+    ctx.strokeStyle = rgbaToHex(input.r!, input.g!, input.b!);
+  } else if (input.type === "canvas setFillColor") {
+    ctx.fillStyle = rgbaToHex(input.r!, input.g!, input.b!);
   }
+}
+
+function rgbaToHex(r: number, g: number, b: number, a: number = 1): string {
+  const clamp = (v: number) => Math.max(0, Math.min(1, v));
+
+  const toHex2 = (v: number) => {
+    const hex = v.toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  };
+
+  const R = Math.round(clamp(r) * 255);
+  const G = Math.round(clamp(g) * 255);
+  const B = Math.round(clamp(b) * 255);
+  const A = Math.round(clamp(a) * 255);
+
+  const hexR = toHex2(R);
+  const hexG = toHex2(G);
+  const hexB = toHex2(B);
+  if (A === 255) {
+    return `#${hexR}${hexG}${hexB}`;
+  }
+  const hexA = toHex2(A);
+  return `#${hexR}${hexG}${hexB}${hexA}`;
 }
