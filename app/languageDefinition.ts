@@ -422,6 +422,202 @@ export const math = (range: any) => [
     documentation: "Returns the sine of its argument in radians. ",
     range: range,
   },
+  {
+    label: "cos",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "cos(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the cosine of its argument in radians.",
+    range: range,
+  },
+  {
+    label: "tan",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "tan(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the tangent of its argument in radians.",
+    range: range,
+  },
+  {
+    label: "sinh",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "sinh(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the hyperbolic sine of its argument. ",
+    range: range,
+  },
+  {
+    label: "cosh",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "cosh(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the hyperbolic cosine of its argument. ",
+    range: range,
+  },
+  {
+    label: "tanh",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "tanh(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the hyperbolic tangent of its argument. ",
+    range: range,
+  },
+  {
+    label: "asin",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "asin(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the inverse sine of its argument. The return value is an angle in radians.",
+    range: range,
+  },
+  {
+    label: "acos",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "acos(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the inverse cosine of its argument. The return value is an angle in radians.",
+    range: range,
+  },
+  {
+    label: "atan",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "atan(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the inverse tangent of its argument. The return value is an angle in radians.",
+    range: range,
+  },
+  {
+    label: "atan2",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "atan2(${1:y}, ${2:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the inverse tangent of y/x. This is the angle between the vectors (x, y) and (1, 0) in radians.",
+    range: range,
+  },
+  {
+    label: "asinh",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "asinh(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the inverse hyperbolic sine of its argument.",
+    range: range,
+  },
+  {
+    label: "acosh",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "acosh(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the inverse hyperbolic cosine of its argument.",
+    range: range,
+  },
+  {
+    label: "atanh",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "atanh(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the inverse hyperbolic tangent of its argument.",
+    range: range,
+  },
+  {
+    label: "exp",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "exp(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the exponential function of its argument.",
+    range: range,
+  },
+  {
+    label: "log",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "log(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the natural logarithm of its argument.",
+    range: range,
+  },
+  {
+    label: "log2",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "log2(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the logarithm with base 2 of its argument.",
+    range: range,
+  },
+  {
+    label: "log10",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "log10(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the logarithm with base 10 of its argument.",
+    range: range,
+  },
+  {
+    label: "pow",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "pow(${1:b}, ${2:e})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the e-th power of b. It is an alternative to operator ^ that always works with data type Real.",
+    range: range,
+  },
+  {
+    label: "sign",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "sign(${1:x})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the sign of its argument, encoded as -1, 0, or +1. The return type is an integer if the argument is, otherwise it is real.",
+    range: range,
+  },
+  {
+    label: "min",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "min(${1:a}, ${2:b})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the smaller of its two arguments. Applicable to ordered non-numeric arguments as well.",
+    range: range,
+  },
+  {
+    label: "max",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "max(${1:a}, ${2:b})",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Returns the larger of its two arguments. Applicable to ordered non-numeric arguments as well.",
+    range: range,
+  },
+  {
+    label: "random",
+    kind: monaco.languages.CompletionItemKind.Function,
+    insertText: "random()",
+    documentation:
+      "Returns a real number drawn from the uniform distribution on the half-open unit interval [0, 1[.",
+    range: range,
+  },
 ];
 export const turtle = (range: any) => [
   {
