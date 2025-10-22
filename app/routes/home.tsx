@@ -61,7 +61,13 @@ export default function Home() {
   const [canvas, setCanvas] = useState(false);
   const [fontsize, setFontsize] = useState(14);
 
+  const [eventmode, setEventmode] = useState(false);
+
   const handleEditorChange = (value: any) => {
+    if (code.includes("enterEventMode();")) {
+      setEventmode(true);
+      return;
+    }
     setCode(value);
     let result = JSON.stringify(run_tscript(value || ""));
     //TODO: Interpret smart and not everytime the code changes
@@ -69,6 +75,10 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (code.includes("enterEventMode();")) {
+      setEventmode(true);
+      return;
+    }
     setFormattedOutput(
       formatOutput(output, turtleRef.current, canvasRef.current),
     );
