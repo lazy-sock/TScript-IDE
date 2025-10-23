@@ -13,13 +13,13 @@ export function handleEditorWillMount(monaco: any) {
     base: "vs-dark", // dark base
     inherit: true,
     rules: [
-      { token: "comment", foreground: "8087a2", fontStyle: "italic" }, // overlay1
+      { token: "comment", foreground: "8087a2", fontStyle: "italic" }, // darker blueish gray
       { token: "keyword", foreground: "c6a0f6", fontStyle: "bold" }, // mauve
       { token: "number", foreground: "f5a97f" }, // peach
       { token: "string", foreground: "a6da95" }, // green
-      { token: "variable", foreground: "cad3f5" }, // text (bright)
+      { token: "variable", foreground: "cad3f5" }, // bright blue
       { token: "type", foreground: "8aadf4" }, // blue
-      { token: "delimiter", foreground: "939ab7" }, // overlay2
+      { token: "delimiter", foreground: "939ab7" }, // blueish gray
       { token: "invalid", foreground: "ed8796" }, // red
       { token: "turtle", foreground: "a6da95" }, // green
       { token: "canvas", foreground: "#c6a0f6" }, // mauvre
