@@ -75,6 +75,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setEventmode(false);
     if (code.includes("enterEventMode();")) {
       setEventmode(true);
       return;
