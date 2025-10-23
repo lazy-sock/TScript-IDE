@@ -1,19 +1,67 @@
-export function canvas(
-  canvas: HTMLCanvasElement | null,
-  input: {
-    type: string;
-    points?: Array<Array<number>>;
-    center?: Array<number>;
-    str?: string;
-    from?: Array<number>;
-    to?: Array<number>;
-    position?: Array<number>;
-    shape?: Array<Array<number>>;
-    r?: number;
-    g?: number;
-    b?: number;
-  },
-) {
+interface CanvasClearInput {
+  type: "canvas clear";
+}
+
+interface CanvasFillInput {
+  type: "canvas fill";
+  points: [[number, number], [number, number]];
+}
+
+interface CanvasEllipseCurveInput {
+  type: "canvas ellipse curve";
+  center: [number, number];
+  shape: [[number, number]];
+}
+
+interface CanvasTextInput {
+  type: "canvas text";
+  str: string;
+  position: [number, number];
+}
+
+interface CanvasEllipseFillInput {
+  type: "canvas ellipse fill";
+  center: [number, number];
+  shape: [[number, number]];
+}
+
+interface CanvasLineInput {
+  type: "canvas line";
+  from: [number, number];
+  to: [number, number];
+}
+
+interface CanvasFrameInput {
+  type: "canvas frame";
+  points: [[number, number], [number, number]];
+}
+
+interface CanvasSetLineColorInput {
+  type: "canvas setLineColor";
+  r: number;
+  g: number;
+  b: number;
+}
+
+interface CanvasSetFillColorInput {
+  type: "canvas setFillColor";
+  r: number;
+  g: number;
+  b: number;
+}
+
+type CanvasInput =
+  | CanvasClearInput
+  | CanvasFillInput
+  | CanvasEllipseCurveInput
+  | CanvasTextInput
+  | CanvasEllipseFillInput
+  | CanvasLineInput
+  | CanvasFrameInput
+  | CanvasSetLineColorInput
+  | CanvasSetFillColorInput;
+
+export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
   if (!canvas) return;
   const ctx = canvas.getContext("2d")!;
 
@@ -25,57 +73,50 @@ export function canvas(
     ctx.clearRect(0, 0, width, height);
   } else if (input.type === "canvas fill") {
     let points = input.points;
-    let x = points![0][0];
-    let y = points![0][1];
-    let w = points![1][0] - x;
-    let h = points![1][1] - y;
+    let x = points[0][0];
+    let y = points[0][1];
+    let w = points[1][0] - x;
+    let h = points[1][1] - y;
     ctx.fillRect(x, y, w, h);
   } else if (input.type === "canvas ellipse curve") {
-    let x = input.center![0];
-    let y = input.center![1];
-    let radius = input.shape![0][0];
+    let x = input.center[0];
+    let y = input.center[1];
+    let radius = input.shape[0][0];
     ctx.beginPath();
     ctx.ellipse(x, y, Math.sqrt(radius), Math.sqrt(radius), 0, 0, 2 * Math.PI);
     ctx.stroke();
   } else if (input.type === "canvas text") {
     let string = input.str;
-    let x = input.position![0];
-    let y = input.position![1];
+    let x = input.position[0];
+    let y = input.position[1];
     ctx.fillText(string!, x, y);
-  } else if (input.type === "canvas fill") {
-    let points = input.points;
-    let x = points![0][0];
-    let y = points![0][1];
-    let w = points![1][0] - x;
-    let h = points![1][1] - y;
-    ctx.fillRect(x, y, w, h);
   } else if (input.type === "canvas ellipse fill") {
-    let x = input.center![0];
-    let y = input.center![1];
-    let radius = input.shape![0][0];
+    let x = input.center[0];
+    let y = input.center[1];
+    let radius = input.shape[0][0];
     ctx.beginPath();
     ctx.ellipse(x, y, Math.sqrt(radius), Math.sqrt(radius), 0, 0, 2 * Math.PI);
     ctx.fill();
   } else if (input.type === "canvas line") {
-    let x1 = input.from![0];
-    let y1 = input.from![1];
-    let x2 = input.to![0];
-    let y2 = input.to![1];
+    let x1 = input.from[0];
+    let y1 = input.from[1];
+    let x2 = input.to[0];
+    let y2 = input.to[1];
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
     ctx.stroke();
   } else if (input.type === "canvas frame") {
     let points = input.points;
-    let x = points![0][0];
-    let y = points![0][1];
-    let w = points![1][0] - x;
-    let h = points![1][1] - y;
+    let x = points[0][0];
+    let y = points[0][1];
+    let w = points[1][0] - x;
+    let h = points[1][1] - y;
     ctx.strokeRect(x, y, w, h);
   } else if (input.type === "canvas setLineColor") {
-    ctx.strokeStyle = rgbaToHex(input.r!, input.g!, input.b!);
+    ctx.strokeStyle = rgbaToHex(input.r, input.g, input.b);
   } else if (input.type === "canvas setFillColor") {
-    ctx.fillStyle = rgbaToHex(input.r!, input.g!, input.b!);
+    ctx.fillStyle = rgbaToHex(input.r, input.g, input.b);
   }
 }
 
