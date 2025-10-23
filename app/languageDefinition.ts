@@ -1004,35 +1004,3 @@ export const audio = (range: any) => [
     range: range,
   },
 ];
-
-export function registerCompletionItemProvider() {
-  return monaco.languages.registerCompletionItemProvider("tscript", {
-    provideCompletionItems: (model: any, position: any) => {
-      const word = model.getWordUntilPosition(position);
-      const range = {
-        startLineNumber: position.lineNumber,
-        endLineNumber: position.lineNumber,
-        startColumn: word.startColumn,
-        endColumn: word.endColumn,
-      };
-      const suggestionskeywords = languageDefinition.keywords.map(
-        (keyword) => ({
-          label: keyword,
-          kind: monaco.languages.CompletionItemKind.Keyword,
-          insertText: keyword,
-          range: range,
-        }),
-      );
-      const suggestions = [
-        ...suggestionskeywords,
-        ...core(range),
-        ...math(range),
-        ...turtle(range),
-        ...canvas(range),
-        ...audio(range),
-      ];
-
-      return { suggestions: suggestions } as any;
-    },
-  });
-}
