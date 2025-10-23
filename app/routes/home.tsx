@@ -108,14 +108,14 @@ export default function Home() {
             ref={canvasRef}
             width={800}
             height={600}
-            className="fixed top-26 right-12 bottom-[200px] z-10 rounded-lg border-4 border-[#11111b] bg-white shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+            className="animate-slide-in-right fixed top-26 right-12 bottom-[200px] z-10 rounded-lg border-4 border-[#c6a0f6] bg-white shadow-[4px_4px_0_0_#c6a0f6]"
           ></canvas>
         ) : (
           <canvas
             ref={canvasRef}
             width={300}
             height={300}
-            className="fixed top-26 right-4 bottom-[200px] z-10 rounded-lg border-4 border-[#11111b] bg-white shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+            className="animate-slide-in-right fixed top-26 right-4 bottom-[200px] z-10 rounded-lg border-4 border-[#c6a0f6] bg-white shadow-[4px_4px_0_0_#c6a0f6]"
           ></canvas>
         ))}
       {turtle &&
@@ -124,14 +124,14 @@ export default function Home() {
             ref={turtleRef}
             width={800}
             height={600}
-            className="fixed top-26 right-12 bottom-[200px] z-10 rounded-lg border-4 border-[#11111b] bg-white shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+            className="animate-slide-in-right fixed top-26 right-12 bottom-[200px] z-10 rounded-lg border-4 border-[#a6da95] bg-white shadow-[4px_4px_0_0_#a6da95]"
           ></canvas>
         ) : (
           <canvas
             ref={turtleRef}
             width={300}
             height={300}
-            className="fixed top-26 right-4 bottom-[200px] z-10 rounded-lg border-4 border-[#11111b] bg-white shadow-[4px_4px_0_0_rgba(17,17,27,1)]"
+            className="animate-slide-in-right fixed top-26 right-4 bottom-[200px] z-10 rounded-lg border-4 border-[#a6da95] bg-white shadow-[4px_4px_0_0_#a6da95]"
           ></canvas>
         ))}
       <div className="fixed right-4 bottom-4 left-4 h-[15vh] overflow-scroll rounded border-4 border-[#11111b] bg-[#181926] px-2 py-1 whitespace-pre-line shadow-[4px_4px_0_0_rgba(17,17,27,1)] sm:px-4 sm:py-2 md:text-[1.25rem]">
