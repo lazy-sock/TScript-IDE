@@ -20,7 +20,6 @@ export function formatOutput(
     console.log(e);
   }
 
-  //TODO: clear turtle and canvas before drawing new stuff
   const canvasCtx = canvasRef?.getContext("2d");
   if (canvasCtx) {
     canvasCtx.clearRect(0, 0, canvasRef!.width, canvasRef!.height);
