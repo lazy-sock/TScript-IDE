@@ -25,16 +25,16 @@ export function handleEditorWillMount(monaco: any) {
       { token: "canvas", foreground: "#c6a0f6" }, // mauvre
     ],
     colors: {
-      "editor.background": "#24273a", // base
-      "editor.foreground": "#cad3f5", // text
+      "editor.background": "#24273a", // blueish black
+      "editor.foreground": "#cad3f5", // blueish white
       "editorCursor.foreground": "#f4dbd6", // rosewater
       "editor.lineHighlightBackground": "#1e2030", // mantle
-      "editor.selectionBackground": "#494d64", // surface1
-      "editor.inactiveSelectionBackground": "#363a4f", // surface0
-      "editorIndentGuide.background": "#6e738d", // overlay0
-      "editorIndentGuide.activeBackground": "#8087a2", // overlay1
-      "editorLineNumber.foreground": "#a5adcb", // subtext0
-      "editorLineNumber.activeForeground": "#cad3f5", // text
+      "editor.selectionBackground": "#494d64", // blueish gray
+      "editor.inactiveSelectionBackground": "#363a4f", // darker blueish gray
+      "editorIndentGuide.background": "#6e738d", // brighter blueish gray
+      "editorIndentGuide.activeBackground": "#8087a2", // even brighter blueish gray
+      "editorLineNumber.foreground": "#a5adcb", // even more brighter blueish gray
+      "editorLineNumber.activeForeground": "#cad3f5", // blueish white
     },
   });
   monaco.editor.setTheme("catppuccin");
