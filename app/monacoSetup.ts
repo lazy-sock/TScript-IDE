@@ -77,13 +77,8 @@ export function handleEditorWillMount(monaco: any) {
       } else if (inNamespace("canvas")) {
         suggestions = [...canvas(range)];
       } else {
-        // Not inside a “.namespace” context
-        // Provide global suggestions + the core namespace’s functions globally
-        suggestions = [
-          ...keywordsSuggestions,
-          ...core(range),
-          // Possibly other global suggestions
-        ];
+        // global suggestions
+        suggestions = [...keywordsSuggestions, ...core(range)];
       }
 
       return { suggestions };
@@ -95,7 +90,6 @@ export function handleEditorWillMount(monaco: any) {
       const word = model.getWordAtPosition(position);
       if (!word) return null;
 
-      // Combine all your completion items
       const allItems = [
         ...core({
           startLineNumber: 0,
@@ -129,7 +123,6 @@ export function handleEditorWillMount(monaco: any) {
         }),
       ];
 
-      // Find matching item
       const item = allItems.find((i) => i.label === word.word);
       if (!item?.documentation) return null;
 
