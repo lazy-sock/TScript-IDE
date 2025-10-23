@@ -1,5 +1,5 @@
 import { useNavBar } from "./NavBarContext";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const NavBar = () => {
   const { onNavClick } = useNavBar();
