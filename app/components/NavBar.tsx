@@ -22,11 +22,11 @@ export const NavBar = () => {
     }
   };
   return (
-    <div className="z-10 fixed bg-[#181926] border-4 rounded h-14 justify-center gap-2 sm:gap-6 items-center flex border-black top-4 left-4 right-4 shadow-[4px_4px_0_0_rgba(17,17,27,1)] px-4">
-      <div className="text-[1.5rem] font-bold mr-auto hidden sm:block text-white">
+    <div className="fixed top-4 right-4 left-4 z-10 flex h-14 items-center justify-center gap-2 rounded border-4 border-black bg-[#181926] px-4 shadow-[4px_4px_0_0_rgba(17,17,27,1)] sm:gap-6">
+      <div className="mr-auto hidden text-[1.5rem] font-bold text-white sm:block">
         Tscript
       </div>
-      <div className="border-3 transition-all gap-2 shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#eed49f] rounded-md border-[#11111b] h-[35px] flex items-center">
+      <div className="flex h-[35px] items-center gap-2 rounded-md border-3 border-[#11111b] bg-[#eed49f] shadow-[3px_3px_0_0_rgba(17,17,27,1)] transition-all">
         {font ? (
           <input
             type="text"
@@ -46,7 +46,7 @@ export const NavBar = () => {
               }
             }}
             ref={inputRef}
-            className="w-[50px] text-[#11111b] text-center"
+            className="w-[50px] text-center text-[#11111b]"
           />
         ) : null}
         <button
@@ -54,10 +54,10 @@ export const NavBar = () => {
             setFont(!font);
             inputRef.current?.focus();
           }}
-          className="flex justify-center items-center group w-[35px] h-[35px] cursor-pointer"
+          className="group flex h-[35px] w-[35px] cursor-pointer items-center justify-center"
         >
           <FontSize />
-          <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#eed49f] hidden group-hover:block">
+          <div className="absolute top-12 hidden rounded-md border-3 border-[#11111b] bg-[#eed49f] px-1 py-0.5 font-medium text-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] group-hover:block">
             Font Size
           </div>
         </button>
@@ -67,47 +67,47 @@ export const NavBar = () => {
         onClick={() => {
           onNavClick?.("git");
         }}
-        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#ed8796] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="group flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-md border-3 border-black bg-[#ed8796] shadow-[3px_3px_0_0_rgba(17,17,27,1)]"
       >
         <Git />
-        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#ed8796] hidden group-hover:block">
+        <div className="absolute top-12 hidden rounded-md border-3 border-[#11111b] bg-[#ed8796] px-1 py-0.5 font-medium text-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] group-hover:block">
           Git
         </div>
       </button>
 
       <button
         onClick={() => onNavClick?.("save")}
-        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#7dc4e4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="group flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-md border-3 border-black bg-[#7dc4e4] shadow-[3px_3px_0_0_rgba(17,17,27,1)]"
       >
         <Export />
-        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#7dc4e4] hidden group-hover:block">
+        <div className="absolute top-12 hidden rounded-md border-3 border-[#11111b] bg-[#7dc4e4] px-1 py-0.5 font-medium text-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] group-hover:block">
           Export
         </div>
       </button>
       <button
         onClick={() => onNavClick?.("upload")}
-        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#8aadf4] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="group flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-md border-3 border-black bg-[#8aadf4] shadow-[3px_3px_0_0_rgba(17,17,27,1)]"
       >
         <Import />
-        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#8aadf4] hidden group-hover:block">
+        <div className="absolute top-12 hidden rounded-md border-3 border-[#11111b] bg-[#8aadf4] px-1 py-0.5 font-medium text-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] group-hover:block">
           Import
         </div>
       </button>
       <button
         onClick={() => onNavClick?.("turtle")}
-        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#a6da95] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="group flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-md border-3 border-black bg-[#a6da95] shadow-[3px_3px_0_0_rgba(17,17,27,1)]"
       >
         <Turtle />
-        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#a6da95] hidden group-hover:block">
+        <div className="absolute top-12 hidden rounded-md border-3 border-[#11111b] bg-[#a6da95] px-1 py-0.5 font-medium text-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] group-hover:block">
           Turtle
         </div>
       </button>
       <button
         onClick={() => onNavClick?.("canvas")}
-        className="border-3 group shadow-[3px_3px_0_0_rgba(17,17,27,1)] bg-[#c6a0f6] rounded-md border-black w-[35px] h-[35px] cursor-pointer flex justify-center items-center"
+        className="group flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-md border-3 border-black bg-[#c6a0f6] shadow-[3px_3px_0_0_rgba(17,17,27,1)]"
       >
         <Canvas />
-        <div className="absolute top-12 text-[#11111b] rounded-md font-medium border-3 border-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] px-1 py-0.5 bg-[#c6a0f6] hidden group-hover:block">
+        <div className="absolute top-12 hidden rounded-md border-3 border-[#11111b] bg-[#c6a0f6] px-1 py-0.5 font-medium text-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] group-hover:block">
           Canvas
         </div>
       </button>
