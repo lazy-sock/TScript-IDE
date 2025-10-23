@@ -1,4 +1,3 @@
-import { start } from "repl";
 import {
   languageDefinition,
   languageConfig,
