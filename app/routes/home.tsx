@@ -71,9 +71,9 @@ export default function Home() {
       return;
     }
     setCode(value);
-    let result = JSON.stringify(run_tscript(value || ""));
+    const result = run_tscript(value || "");
     //TODO: Interpret smart and not everytime the code changes
-    setOutput(JSON.stringify(run_tscript(value || ""), null, 2));
+    setOutput(JSON.stringify(result, null, 2));
   };
 
   useEffect(() => {
@@ -82,10 +82,16 @@ export default function Home() {
       setEventmode(true);
       return;
     }
+    handleEditorChange(code);
     setFormattedOutput(
       formatOutput(output, turtleRef.current, canvasRef.current),
     );
-  }, [turtle, output, code]);
+
+    // TEMPORARY: This is needed so the turtle and canvas instantly contain the drawing
+    setTimeout(() => {
+      formatOutput(output, turtleRef.current, canvasRef.current);
+    }, 200);
+  }, [turtle, canvas, output, code]);
 
   return (
     <div className="h-screen bg-[#24273a]">
