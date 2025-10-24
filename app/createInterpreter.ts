@@ -443,7 +443,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
     source: any,
   ) {
     output.push({
-      type: "paintImage",
+      type: "canvas paintImage",
       x: x,
       y: y,
       source: source,

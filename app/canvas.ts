@@ -78,6 +78,13 @@ interface setFont {
   fontsize: string;
 }
 
+interface paintImage {
+  type: "canvas paintImage";
+  x: number;
+  y: number;
+  source: any;
+}
+
 type CanvasInput =
   | CanvasClearInput
   | CanvasFillInput
@@ -91,7 +98,8 @@ type CanvasInput =
   | setPixel
   | setOpacity
   | setTextAlign
-  | setFont;
+  | setFont
+  | paintImage;
 
 export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
   if (!canvas) return;
@@ -169,6 +177,8 @@ export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
     ctx.textAlign = input.alignment;
   } else if (input.type === "canvas setFont") {
     ctx.font = `${input.fontsize}px ${input.fontface}`;
+  } else if (input.type === "canvas paintImage") {
+    ctx.drawImage(input.source, input.x, input.y); // input.source is empty: something with Bitmap does not work
   }
 }
 
