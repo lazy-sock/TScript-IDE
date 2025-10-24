@@ -50,6 +50,13 @@ interface CanvasSetFillColorInput {
   b: number;
 }
 
+interface setPixel {
+  type: "canvas setPixel";
+  x: number;
+  y: number;
+  data: number[];
+}
+
 type CanvasInput =
   | CanvasClearInput
   | CanvasFillInput
@@ -59,7 +66,8 @@ type CanvasInput =
   | CanvasLineInput
   | CanvasFrameInput
   | CanvasSetLineColorInput
-  | CanvasSetFillColorInput;
+  | CanvasSetFillColorInput
+  | setPixel;
 
 export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
   if (!canvas) return;
@@ -117,6 +125,20 @@ export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
     ctx.strokeStyle = rgbaToHex(input.r, input.g, input.b);
   } else if (input.type === "canvas setFillColor") {
     ctx.fillStyle = rgbaToHex(input.r, input.g, input.b);
+  } else if (input.type === "canvas setPixel") {
+    let oldFillStyle: any = ctx.fillStyle;
+    ctx.fillStyle =
+      "rgba(" +
+      input.data[0] +
+      "," +
+      input.data[1] +
+      "," +
+      input.data[2] +
+      "," +
+      input.data[3] / 255 +
+      ")";
+    ctx.fillRect(input.x, input.y, 1, 1);
+    ctx.fillStyle = oldFillStyle;
   }
 }
 

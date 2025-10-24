@@ -220,7 +220,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
     fontsize: number,
   ) {
     output.push({
-      type: "canvas.setFont",
+      type: "canvas setFont",
       fontface: fontface,
       fontsize: fontsize,
     });
@@ -457,6 +457,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
     sh: number,
   ) {
     output.push({
+      type: "canvas paintImageSection",
       dx: dx,
       dy: dy,
       dw: dw,
@@ -470,6 +471,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
   };
   interpreter.service.canvas.getPixel = function (x: number, y: number) {
     output.push({
+      type: "canvas getPixel",
       x: x,
       y: y,
     });
@@ -477,9 +479,10 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
   interpreter.service.canvas.setPixel = function (
     x: number,
     y: number,
-    data: number,
+    data: number[],
   ) {
     output.push({
+      type: "canvas setPixel",
       x: x,
       y: y,
       data: data,
