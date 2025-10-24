@@ -27,6 +27,7 @@ export function formatOutput(
     canvasCtx.strokeStyle = "black";
     canvasCtx.globalAlpha = 1;
     canvasCtx.textAlign = "left";
+    canvasCtx.font = "16px Helvetica";
   }
   const turtleCtx = turtleRef?.getContext("2d");
   if (turtleCtx) {

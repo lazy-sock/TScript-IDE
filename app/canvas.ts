@@ -72,6 +72,12 @@ interface setTextAlign {
   alignment: "left" | "center" | "right";
 }
 
+interface setFont {
+  type: "canvas setFont";
+  fontface: string;
+  fontsize: string;
+}
+
 type CanvasInput =
   | CanvasClearInput
   | CanvasFillInput
@@ -84,7 +90,8 @@ type CanvasInput =
   | CanvasSetFillColorInput
   | setPixel
   | setOpacity
-  | setTextAlign;
+  | setTextAlign
+  | setFont;
 
 export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
   if (!canvas) return;
@@ -160,6 +167,8 @@ export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
     ctx.globalAlpha = input.alpha;
   } else if (input.type === "canvas setTextAlign") {
     ctx.textAlign = input.alignment;
+  } else if (input.type === "canvas setFont") {
+    ctx.font = `${input.fontsize}px ${input.fontface}`;
   }
 }
 
