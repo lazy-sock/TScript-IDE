@@ -8,7 +8,7 @@ import { createInterpreter } from "./createInterpreter";
 //  - code is the TScript source code to run
 //  - maxseconds is the timeout, default=3
 //  - inputs in an array of values returned by consecutive calls to TScript's confirm or prompt, default=[]
-export function run_tscript(code, maxseconds = 3.0, inputs = []) {
+export function run_tscript(code: string, maxseconds = 3.0, inputs = []) {
   inputs = inputs.slice();
   let output = new Array();
 
@@ -27,7 +27,6 @@ export function run_tscript(code, maxseconds = 3.0, inputs = []) {
   }
   let program = result.program;
 
-  // create an interpreter and prepare it for collecting output events
   let interpreter = createInterpreter(program, inputs, output);
   interpreter.stopthread();
   interpreter.reset();

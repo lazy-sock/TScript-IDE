@@ -124,7 +124,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
           let index = cls.names[key].id;
           event.value.a[index] = TScript.json2typed.call(
             interpreter,
-            properties[key]
+            properties[key],
           );
         }
       }
@@ -163,7 +163,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
     msg,
     line: any = null,
     ch: any = null,
-    href: any = ""
+    href: any = "",
   ) {
     output.push({
       type: "runtime error",
@@ -195,12 +195,40 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       b: b,
     });
   };
+  interpreter.service.canvas.setLineWidth = function (width: number) {
+    output.push({
+      type: "canvas setLineWidth",
+      width: width,
+    });
+  };
   interpreter.service.canvas.setFillColor = function (r, g, b) {
     output.push({
       type: "canvas setFillColor",
       r: r,
       g: g,
       b: b,
+    });
+  };
+  interpreter.service.canvas.setOpacity = function (alpha: number) {
+    output.push({
+      type: "canvas setOpacity",
+      alpha: alpha,
+    });
+  };
+  interpreter.service.canvas.setFont = function (
+    fontface: string,
+    fontsize: number,
+  ) {
+    output.push({
+      type: "canvas.setFont",
+      fontface: fontface,
+      fontsize: fontsize,
+    });
+  };
+  interpreter.service.canvas.setTextAlign = function (alignment: string) {
+    output.push({
+      type: "setTextAlign",
+      alignment: alignment,
     });
   };
   interpreter.service.canvas.clear = function () {
@@ -379,7 +407,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
         [1, 0],
         [0, 1],
       ],
-      [dx, dy]
+      [dx, dy],
     );
   };
   interpreter.service.canvas.scale = function (factor) {
@@ -388,7 +416,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
         [factor, 0],
         [0, factor],
       ],
-      [0, 0]
+      [0, 0],
     );
   };
   interpreter.service.canvas.rotate = function (angle) {
@@ -399,11 +427,63 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
         [c, -s],
         [s, c],
       ],
-      [0, 0]
+      [0, 0],
     );
   };
   interpreter.service.canvas.transform = function (A, b) {
     interpreter.service.canvas._multiply(A, b);
+  };
+  interpreter.service.canvas.paintImage = function (
+    x: number,
+    y: number,
+    source: any,
+  ) {
+    output.push({
+      type: "paintImage",
+      x: x,
+      y: y,
+      source: source,
+    });
+  };
+  interpreter.service.canvas.paintImageSection = function (
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number,
+    source: any,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+  ) {
+    output.push({
+      dx: dx,
+      dy: dy,
+      dw: dw,
+      dh: dh,
+      source: source,
+      sx: sx,
+      sy: sy,
+      sw: sw,
+      sh: sh,
+    });
+  };
+  interpreter.service.canvas.getPixel = function (x: number, y: number) {
+    output.push({
+      x: x,
+      y: y,
+    });
+  };
+  interpreter.service.canvas.setPixel = function (
+    x: number,
+    y: number,
+    data: number,
+  ) {
+    output.push({
+      x: x,
+      y: y,
+      data: data,
+    });
   };
 
   return interpreter;
