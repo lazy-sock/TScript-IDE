@@ -231,7 +231,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
   };
   interpreter.service.canvas.setTextAlign = function (alignment: string) {
     output.push({
-      type: "setTextAlign",
+      type: "canvas setTextAlign",
       alignment: alignment,
     });
   };

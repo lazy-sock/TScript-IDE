@@ -26,6 +26,7 @@ export function formatOutput(
     canvasCtx.fillStyle = "black";
     canvasCtx.strokeStyle = "black";
     canvasCtx.globalAlpha = 1;
+    canvasCtx.textAlign = "left";
   }
   const turtleCtx = turtleRef?.getContext("2d");
   if (turtleCtx) {

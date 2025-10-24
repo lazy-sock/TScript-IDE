@@ -67,6 +67,11 @@ interface setOpacity {
   alpha: number;
 }
 
+interface setTextAlign {
+  type: "canvas setTextAlign";
+  alignment: "left" | "center" | "right";
+}
+
 type CanvasInput =
   | CanvasClearInput
   | CanvasFillInput
@@ -78,7 +83,8 @@ type CanvasInput =
   | CanvasSetLineColorInput
   | CanvasSetFillColorInput
   | setPixel
-  | setOpacity;
+  | setOpacity
+  | setTextAlign;
 
 export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
   if (!canvas) return;
@@ -152,6 +158,8 @@ export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
     ctx.fillStyle = oldFillStyle;
   } else if (input.type === "canvas setOpacity") {
     ctx.globalAlpha = input.alpha;
+  } else if (input.type === "canvas setTextAlign") {
+    ctx.textAlign = input.alignment;
   }
 }
 
