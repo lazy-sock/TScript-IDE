@@ -201,7 +201,11 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       width: width,
     });
   };
-  interpreter.service.canvas.setFillColor = function (r, g, b) {
+  interpreter.service.canvas.setFillColor = function (
+    r: number,
+    g: number,
+    b: number,
+  ) {
     output.push({
       type: "canvas setFillColor",
       r: r,

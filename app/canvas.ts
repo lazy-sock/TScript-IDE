@@ -4,7 +4,12 @@ interface CanvasClearInput {
 
 interface CanvasFillInput {
   type: "canvas fill";
-  points: [[number, number], [number, number]];
+  points: [
+    [number, number],
+    [number, number],
+    [number, number],
+    [number, number],
+  ];
 }
 
 interface CanvasEllipseCurveInput {
@@ -57,6 +62,11 @@ interface setPixel {
   data: number[];
 }
 
+interface setOpacity {
+  type: "canvas setOpacity";
+  alpha: number;
+}
+
 type CanvasInput =
   | CanvasClearInput
   | CanvasFillInput
@@ -67,7 +77,8 @@ type CanvasInput =
   | CanvasFrameInput
   | CanvasSetLineColorInput
   | CanvasSetFillColorInput
-  | setPixel;
+  | setPixel
+  | setOpacity;
 
 export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
   if (!canvas) return;
@@ -83,8 +94,8 @@ export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
     let points = input.points;
     let x = points[0][0];
     let y = points[0][1];
-    let w = points[1][0] - x;
-    let h = points[1][1] - y;
+    let w = points[2][0] - x;
+    let h = points[2][1] - y;
     ctx.fillRect(x, y, w, h);
   } else if (input.type === "canvas ellipse curve") {
     let x = input.center[0];
@@ -139,6 +150,8 @@ export function canvas(canvas: HTMLCanvasElement | null, input: CanvasInput) {
       ")";
     ctx.fillRect(input.x, input.y, 1, 1);
     ctx.fillStyle = oldFillStyle;
+  } else if (input.type === "canvas setOpacity") {
+    ctx.globalAlpha = input.alpha;
   }
 }
 
