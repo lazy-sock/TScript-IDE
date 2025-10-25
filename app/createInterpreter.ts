@@ -492,6 +492,32 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       data: data,
     });
   };
+  interpreter.service.canvas.Bitmap = {
+    _map: new Map<any, string>(),
+    _nextId: 1,
+
+    // register a native bitmap (HTMLCanvasElement or null) and return a stable id
+    register: function (canvas: any): string | null {
+      if (canvas === null || typeof canvas === "undefined") return null;
+      if (this._map.has(canvas)) return this._map.get(canvas) as string;
+      const id = "bmp" + String(this._nextId++);
+      this._map.set(canvas, id);
+      return id;
+    },
+
+    // lookup native bitmap by id (for host code that wants to inspect/draw it)
+    getById: function (id: string): any | null {
+      for (const [k, v] of this._map) {
+        if (v === id) return k;
+      }
+      return null;
+    },
+
+    // optional helper: check whether a canvas is already registered
+    has: function (canvas: any): boolean {
+      return this._map.has(canvas);
+    },
+  } as any;
 
   return interpreter;
 }
