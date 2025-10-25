@@ -62,6 +62,7 @@ export default function Home() {
   const [turtle, setTurtle] = useState(false);
   const [canvas, setCanvas] = useState(false);
   const [fontsize, setFontsize] = useState(14);
+  const [inputs, setInputs]: any = useState([]);
 
   const [eventmode, setEventmode] = useState(false);
 
@@ -71,7 +72,8 @@ export default function Home() {
       return;
     }
     setCode(value);
-    const result = run_tscript(value || "");
+    console.log(inputs);
+    const result = run_tscript(value || "", 3.0, inputs);
     //TODO: Interpret smart and not everytime the code changes
     setOutput(JSON.stringify(result, null, 2));
   };
@@ -91,7 +93,11 @@ export default function Home() {
     setTimeout(() => {
       formatOutput(output, turtleRef.current, canvasRef.current);
     }, 200);
-  }, [turtle, canvas, output, code]);
+  }, [turtle, canvas, inputs, output, code]);
+
+  const handlePendingEventsChange = (newEvents: any[]) => {
+    setInputs(newEvents);
+  };
 
   return (
     <div className="h-screen bg-[#24273a]">
@@ -110,7 +116,11 @@ export default function Home() {
           formatOnType: true,
         }}
       />
-      <Canvas visible={canvas} ref={canvasRef} />
+      <Canvas
+        visible={canvas}
+        ref={canvasRef}
+        onPendingEventsChange={handlePendingEventsChange}
+      />
       <Turtle visible={turtle} ref={turtleRef} />
       <div className="fixed right-4 bottom-4 left-4 h-[15vh] overflow-scroll rounded border-4 border-[#11111b] bg-[#181926] px-2 py-1 font-mono whitespace-pre-line shadow-[4px_4px_0_0_rgba(17,17,27,1)] sm:px-4 sm:py-2 md:text-[1.25rem]">
         {formattedOutput.startsWith("Error") ? (

@@ -7,9 +7,10 @@ export function formatOutput(
   canvasRef: HTMLCanvasElement | null,
 ): string {
   if (output == "") return "";
-  let object = JSON.parse(output);
-  let result = "";
   if (output.length === 0) return "";
+  let object = JSON.parse(output);
+  if (object[0] === undefined) return "";
+  let result = "";
   try {
     if (object[0].hasOwnProperty("type")) {
       if (object[0].type === "compile error") {

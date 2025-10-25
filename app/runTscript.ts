@@ -9,6 +9,7 @@ import { createInterpreter } from "./createInterpreter";
 //  - maxseconds is the timeout, default=3
 //  - inputs in an array of values returned by consecutive calls to TScript's confirm or prompt, default=[]
 export function run_tscript(code: string, maxseconds = 3.0, inputs = []) {
+  console.log("started runTscript.ts");
   inputs = inputs.slice();
   let output = new Array();
 
@@ -28,6 +29,7 @@ export function run_tscript(code: string, maxseconds = 3.0, inputs = []) {
   let program = result.program;
 
   let interpreter = createInterpreter(program, inputs, output);
+  console.log("got here!");
   interpreter.stopthread();
   interpreter.reset();
 
@@ -36,11 +38,14 @@ export function run_tscript(code: string, maxseconds = 3.0, inputs = []) {
   while (true) {
     let start = new Date().getTime();
     if (start >= timeout) {
+      console.log("timeout");
       output.push({
         type: "timeout - program execution took too long",
       });
       return output;
     }
+
+    console.log(start);
 
     if (interpreter.status === "waiting") interpreter.status = "running";
     if (interpreter.status != "running") break;
@@ -49,6 +54,7 @@ export function run_tscript(code: string, maxseconds = 3.0, inputs = []) {
       new Date().getTime() - start < 14 &&
       interpreter.status === "running"
     ) {
+      console.log("interpreter running");
       interpreter.exec_step();
       if (interpreter.halt) break;
     }
@@ -59,6 +65,8 @@ export function run_tscript(code: string, maxseconds = 3.0, inputs = []) {
       });
     }
   }
+
+  console.log("Stopped runTscript.ts");
 
   return output;
 }
