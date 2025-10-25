@@ -22,7 +22,7 @@ export const NavBar = () => {
     }
   };
   return (
-    <div className="font-archivo fixed top-4 right-4 left-4 z-10 flex h-14 items-center justify-center gap-2 rounded border-4 border-black bg-[#181926] px-4 shadow-[4px_4px_0_0_rgba(17,17,27,1)] sm:gap-6">
+    <div className="font-archivo fixed top-4 right-4 left-4 z-10 flex h-14 items-center justify-center gap-2 rounded border-4 border-[#11111b] bg-[#181926] px-4 shadow-[4px_4px_0_0_rgba(17,17,27,1)] sm:gap-6">
       <a
         href="https://tglas.github.io/tscript/?doc="
         className="mr-auto hidden text-[1.5rem] font-extrabold text-white sm:block"
