@@ -112,7 +112,7 @@ export default function Home() {
       />
       <Canvas visible={canvas} ref={canvasRef} />
       <Turtle visible={turtle} ref={turtleRef} />
-      <div className="fixed right-4 bottom-4 left-4 h-[15vh] overflow-scroll rounded border-4 border-[#11111b] bg-[#181926] px-2 py-1 whitespace-pre-line shadow-[4px_4px_0_0_rgba(17,17,27,1)] sm:px-4 sm:py-2 md:text-[1.25rem]">
+      <div className="fixed right-4 bottom-4 left-4 h-[15vh] overflow-scroll rounded border-4 border-[#11111b] bg-[#181926] px-2 py-1 font-mono whitespace-pre-line shadow-[4px_4px_0_0_rgba(17,17,27,1)] sm:px-4 sm:py-2 md:text-[1.25rem]">
         {formattedOutput.startsWith("Error") ? (
           <span className="font-bold text-[#f38ba8] md:text-[1.25rem]">
             {formatError(output)}
