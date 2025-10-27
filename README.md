@@ -11,6 +11,8 @@ TScript Documentation: https://tglas.github.io/tscript/?doc=
 - git
 - audio (low priority)
 
+Also, generally expect other unsupported features and random bugs.
+
 ## Features
 
 - full support for most core libraries
