@@ -75,7 +75,7 @@ export default function Home() {
     }
     setCode(value);
     console.log(inputs);
-    const result = run_tscript(value || "", 3.0, inputs);
+    const result = run_tscript(value || "", 3.0, inputs, canvasRef.current);
     //TODO: Interpret smart and not everytime the code changes
     setOutput(JSON.stringify(result, null, 2));
   };
