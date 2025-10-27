@@ -57,7 +57,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
   };
 
   // compute a quadratic form from the transformation
-  interpreter.service.canvas._quadratic = function (scale) {
+  interpreter.service.canvas._quadratic = function (scale: number) {
     scale *= scale;
     return [
       [
@@ -138,22 +138,22 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
     }
   }
   let orig_turtle_move = interpreter.service.turtle.move;
-  interpreter.service.print = function (msg) {
+  interpreter.service.print = function (msg: string) {
     output.push({ type: "print", value: msg });
   };
-  interpreter.service.alert = function (msg) {
+  interpreter.service.alert = function (msg: string) {
     return new Promise((resolve, reject) => {
       output.push({ type: "alert", value: msg });
       resolve(null);
     });
   };
-  interpreter.service.confirm = function (msg) {
+  interpreter.service.confirm = function (msg: string) {
     return new Promise((resolve, reject) => {
       if (!inputs || inputs.length === 0) resolve(false);
       else resolve(!!inputs.shift());
     });
   };
-  interpreter.service.prompt = function (msg) {
+  interpreter.service.prompt = function (msg: string) {
     return new Promise((resolve, reject) => {
       if (!inputs || inputs.length === 0) resolve("");
       else resolve(inputs.shift());
@@ -172,7 +172,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       href: href,
     });
   };
-  interpreter.service.turtle.move = function (distance) {
+  interpreter.service.turtle.move = function (distance: number) {
     let x0 = interpreter.service.turtle.x;
     let y0 = interpreter.service.turtle.y;
     orig_turtle_move.call(this, distance);
@@ -187,7 +187,11 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       });
   };
   interpreter.service.canvas.dom = { width: 1920, height: 1080 };
-  interpreter.service.canvas.setLineColor = function (r, g, b) {
+  interpreter.service.canvas.setLineColor = function (
+    r: number,
+    g: number,
+    b: number,
+  ) {
     output.push({
       type: "canvas setLineColor",
       r: r,
@@ -238,7 +242,12 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
   interpreter.service.canvas.clear = function () {
     output.push({ type: "canvas clear" });
   };
-  interpreter.service.canvas.line = function (x1, y1, x2, y2) {
+  interpreter.service.canvas.line = function (
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+  ) {
     let points = interpreter.service.canvas._transform([
       [x1, y1],
       [x2, y2],
@@ -249,7 +258,12 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       to: points[1],
     });
   };
-  interpreter.service.canvas.rect = function (left, top, width, height) {
+  interpreter.service.canvas.rect = function (
+    left: number,
+    top: number,
+    width: number,
+    height: number,
+  ) {
     if (width < 0) {
       left += width;
       width = -width;
@@ -285,7 +299,12 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       to: points[0],
     });
   };
-  interpreter.service.canvas.fillRect = function (left, top, width, height) {
+  interpreter.service.canvas.fillRect = function (
+    left: number,
+    top: number,
+    width: number,
+    height: number,
+  ) {
     if (width < 0) {
       left += width;
       width = -width;
@@ -305,7 +324,12 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       points: points,
     });
   };
-  interpreter.service.canvas.frameRect = function (left, top, width, height) {
+  interpreter.service.canvas.frameRect = function (
+    left: number,
+    top: number,
+    width: number,
+    height: number,
+  ) {
     if (width < 0) {
       left += width;
       width = -width;
@@ -345,21 +369,33 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       to: points[0],
     });
   };
-  interpreter.service.canvas.circle = function (x, y, radius) {
+  interpreter.service.canvas.circle = function (
+    x: number,
+    y: number,
+    radius: number,
+  ) {
     output.push({
       type: "canvas ellipse curve",
       center: interpreter.service.canvas._transform([[x, y]])[0],
       shape: interpreter.service.canvas._quadratic(radius),
     });
   };
-  interpreter.service.canvas.fillCircle = function (x, y, radius) {
+  interpreter.service.canvas.fillCircle = function (
+    x: number,
+    y: number,
+    radius: number,
+  ) {
     output.push({
       type: "canvas ellipse fill",
       center: interpreter.service.canvas._transform([[x, y]])[0],
       shape: interpreter.service.canvas._quadratic(radius),
     });
   };
-  interpreter.service.canvas.frameCircle = function (x, y, radius) {
+  interpreter.service.canvas.frameCircle = function (
+    x: number,
+    y: number,
+    radius: number,
+  ) {
     let c = interpreter.service.canvas._transform([[x, y]])[0];
     let q = interpreter.service.canvas._quadratic(radius);
     output.push({ type: "canvas ellipse fill", center: c, shape: q });
@@ -405,7 +441,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
     ];
     interpreter.service.canvas._trafo_b = [0, 0];
   };
-  interpreter.service.canvas.shift = function (dx, dy) {
+  interpreter.service.canvas.shift = function (dx: number, dy: number) {
     interpreter.service.canvas._multiply(
       [
         [1, 0],
@@ -414,7 +450,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       [dx, dy],
     );
   };
-  interpreter.service.canvas.scale = function (factor) {
+  interpreter.service.canvas.scale = function (factor: number) {
     interpreter.service.canvas._multiply(
       [
         [factor, 0],
@@ -423,7 +459,7 @@ export function createInterpreter(program: ProgramRoot, inputs, output) {
       [0, 0],
     );
   };
-  interpreter.service.canvas.rotate = function (angle) {
+  interpreter.service.canvas.rotate = function (angle: number) {
     let c = Math.cos(angle);
     let s = Math.sin(angle);
     interpreter.service.canvas._multiply(
