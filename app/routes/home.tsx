@@ -30,8 +30,10 @@ export default function Home() {
   useEffect(() => {
     const handler = async (action: string) => {
       if (action === "turtle") {
+        setCanvas(false);
         setTurtle((prev) => !prev);
       } else if (action === "canvas") {
+        setTurtle(false);
         setCanvas((prev) => !prev);
       } else if (action === "save") {
         downloadCode("code", code, "application/tscript");
