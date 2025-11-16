@@ -66,7 +66,7 @@ export const NavBar = () => {
         </button>
       </div>
 
-      <button
+      {/* <button
         onClick={() => {
           onNavClick?.("git");
         }}
@@ -76,7 +76,7 @@ export const NavBar = () => {
         <div className="absolute top-12 hidden rounded-md border-3 border-[#11111b] bg-[#ed8796] px-1 py-0.5 font-bold text-[#11111b] shadow-[3px_3px_0_0_rgba(17,17,27,1)] group-hover:block">
           Git
         </div>
-      </button>
+      </button> */}
 
       <button
         onClick={() => onNavClick?.("save")}
