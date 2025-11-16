@@ -140,12 +140,12 @@ const Canvas = forwardRef<HTMLCanvasElement, Props>(
 
     return (
       <canvas
-        onMouseMove={handleMouseMove}
-        onMouseOut={handleMouseOut}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onKeyDown={handleKeyDown}
-        onKeyUp={handleKeyUp}
+        // onMouseMove={handleMouseMove}
+        // onMouseOut={handleMouseOut}
+        // onMouseDown={handleMouseDown}
+        // onMouseUp={handleMouseUp}
+        // onKeyDown={handleKeyDown}
+        // onKeyUp={handleKeyUp}
         ref={ref}
         width={width}
         height={height}
