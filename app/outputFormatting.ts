@@ -15,11 +15,15 @@ export function formatOutput(
     if (object[0].hasOwnProperty("type")) {
       if (object[0].type === "compile error") {
         return formatError(output);
+      } else if (object[0].type === "runtime error") {
+        return formatRuntimeError(output);
       }
     }
   } catch (e) {
     console.log(e);
   }
+
+  console.log(output);
 
   const canvasCtx = canvasRef?.getContext("2d");
   if (canvasCtx) {
@@ -57,6 +61,17 @@ export function formatError(output: string): string {
   let object = JSON.parse(output);
   for (let i in object) {
     result += "Line " + object[i].line + ": ";
+    result += object[i].message;
+    result += "\n";
+  }
+  return result;
+}
+
+function formatRuntimeError(output: string): string {
+  let result = "Runtime Error: ";
+  if (output == "") return "";
+  let object = JSON.parse(output);
+  for (let i in object) {
     result += object[i].message;
     result += "\n";
   }

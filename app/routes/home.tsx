@@ -129,6 +129,10 @@ export default function Home() {
           <span className="font-bold text-[#f38ba8] md:text-[1.25rem]">
             {formatError(output)}
           </span>
+        ) : formattedOutput.startsWith("Runtime Error") ? (
+          <span className="font-bold text-[#f38ba8] md:text-[1.25rem]">
+            {formattedOutput}
+          </span>
         ) : (
           formattedOutput
         )}
