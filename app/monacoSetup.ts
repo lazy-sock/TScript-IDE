@@ -8,6 +8,28 @@ import {
   audio,
 } from "./languageDefinition";
 
+function parseDocument(code: string) {
+  const symbols = new Map<string, string>();
+  // Simple regex-based parser to extract function and variable names with their types
+  const functionRegex = /function\s+(\w+)\s*\(([^)]*)\)\s*:\s*(\w+)/g;
+  const variableRegex = /var\s+(\w+)\s*:\s*(\w+)/g;
+
+  let match;
+  while ((match = functionRegex.exec(code)) !== null) {
+    const name = match[1];
+    const returnType = match[3];
+    symbols.set(name, `Function returning ${returnType}`);
+  }
+
+  while ((match = variableRegex.exec(code)) !== null) {
+    const name = match[1];
+    const varType = match[2];
+    symbols.set(name, `Variable of type ${varType}`);
+  }
+
+  return symbols;
+}
+
 export function handleEditorWillMount(monaco: any) {
   monaco.editor.defineTheme("catppuccin", {
     base: "vs-dark", // dark base
