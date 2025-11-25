@@ -6,6 +6,7 @@ import {
   turtle,
   canvas,
   audio,
+  arrayFunctions,
 } from "./languageDefinition";
 
 function parseDocument(code: string) {
@@ -65,7 +66,7 @@ export function handleEditorWillMount(monaco: any) {
   monaco.languages.setLanguageConfiguration("tscript", languageConfig);
 
   monaco.languages.registerCompletionItemProvider("tscript", {
-    triggerCharacters: ["."],
+    triggerCharacters: [".", ""],
     provideCompletionItems: (model: any, position: any) => {
       const word = model.getWordUntilPosition(position);
       const range = {
@@ -83,6 +84,37 @@ export function handleEditorWillMount(monaco: any) {
         return re.test(prefix);
       }
 
+      // Check for variable.method pattern
+      function getVariableBefore(prefix: string): string | null {
+        const match = prefix.match(/(\w+)\s*\.$/);
+        return match ? match[1] : null;
+      }
+
+      // Parse document to build symbol table
+      function parseDocumentForVariables() {
+        const symbols = new Map<string, { type: string }>();
+        const code = model.getValue();
+
+        // Match: let/const/var name = value
+        const varRegex = /(?:let|const|var)\s+(\w+)\s*=\s*(\[|new\s+\w+|{)/g;
+        let match;
+
+        while ((match = varRegex.exec(code)) !== null) {
+          const varName = match[1];
+          const valueStart = match[2];
+
+          if (valueStart === "[") {
+            symbols.set(varName, { type: "array" });
+          } else if (valueStart.includes("turtle")) {
+            symbols.set(varName, { type: "turtle" });
+          } else if (valueStart.includes("canvas")) {
+            symbols.set(varName, { type: "canvas" });
+          }
+        }
+
+        return symbols;
+      }
+
       const keywordsSuggestions = languageDefinition.keywords.map(
         (keyword) => ({
           label: keyword,
@@ -94,13 +126,50 @@ export function handleEditorWillMount(monaco: any) {
 
       let suggestions: any = [];
 
-      if (inNamespace("turtle")) {
-        suggestions = [...turtle(range)];
-      } else if (inNamespace("canvas")) {
-        suggestions = [...canvas(range)];
+      const varName = getVariableBefore(prefix);
+      if (!varName) {
+        // No dot before cursor, so suggest variable names
+        const symbols = parseDocumentForVariables();
+        const varSuggestions = Array.from(symbols.entries()).map(
+          ([name, info]) => ({
+            label: name,
+            kind: monaco.languages.CompletionItemKind.Variable,
+            insertText: name,
+            range: range,
+          }),
+        );
+        suggestions = [
+          ...keywordsSuggestions,
+          ...core(range),
+          ...varSuggestions,
+        ];
       } else {
-        // global suggestions
-        suggestions = [...keywordsSuggestions, ...core(range)];
+        if (inNamespace("turtle")) {
+          suggestions = [...turtle(range)];
+        } else if (inNamespace("canvas")) {
+          suggestions = [...canvas(range)];
+        } else {
+          // Check for variable.method completion
+          const varName = getVariableBefore(prefix);
+          if (varName) {
+            const symbols = parseDocumentForVariables();
+            const symbol = symbols.get(varName);
+
+            if (symbol?.type === "array") {
+              suggestions = arrayFunctions(range); // push, pop, map, etc.
+            } else if (symbol?.type === "turtle") {
+              suggestions = [...turtle(range)];
+            } else if (symbol?.type === "canvas") {
+              suggestions = [...canvas(range)];
+            } else {
+              // Fallback to global suggestions
+              suggestions = [...keywordsSuggestions, ...core(range)];
+            }
+          } else {
+            // Global suggestions
+            suggestions = [...keywordsSuggestions, ...core(range)];
+          }
+        }
       }
 
       return { suggestions };
@@ -138,6 +207,12 @@ export function handleEditorWillMount(monaco: any) {
           endColumn: 0,
         }),
         ...audio({
+          startLineNumber: 0,
+          endLineNumber: 0,
+          startColumn: 0,
+          endColumn: 0,
+        }),
+        ...arrayFunctions({
           startLineNumber: 0,
           endLineNumber: 0,
           startColumn: 0,

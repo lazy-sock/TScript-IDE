@@ -1004,3 +1004,79 @@ export const audio = (range: any) => [
     range: range,
   },
 ];
+
+export const arrayFunctions = (range: any) => [
+  {
+    label: "size",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "size()",
+    documentation:
+      "Returns the size of the array, which is the number of items.",
+    range,
+  },
+  {
+    label: "slice",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "slice($1, $2)",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Returns the content of the given range in the array",
+    range,
+  },
+  {
+    label: "push",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "push($1)",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation: "Appends the given item to the array.",
+    range,
+  },
+  {
+    label: "pop",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "pop()",
+    documentation:
+      "Removes and returns the last item from the array. When applied to the empty array it raises an error.",
+    range,
+  },
+  {
+    label: "insert",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "insert($1, $2)",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Inserts a new item at a given position. The index must be non-negative and it must not exceed the array size.",
+    range,
+  },
+  {
+    label: "remove",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "remove($1)",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Removes the indicated range of items from the array. If range is an integer, then it is interpreted as range:range+1.",
+    range,
+  },
+  {
+    label: "sort",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "sort($1)",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Sorts the array in-place. Sorting is stable, i.e., the order of equivalent items is preserved. If comparator equals null then the built-in order relation is used for sorting, which means that all items in the array must be ordered. Otherwise comparator is assumed to be a function of two arguments (denoted lhs and rhs) that returns a numeric value. A negative return value means that lhs should appear before rhs, a positive return value means lhs should appear after rhs, and zero indicates that the order does not matter, i.e., lhs and rhs are equivalent with respect to the order relation. The compare function is assumed to induce a strict weak order relation. If this assumption is not fulfilled then there is no guarantee that the function will manage to sort the array. ",
+    range,
+  },
+  {
+    label: "concat",
+    kind: monaco.languages.CompletionItemKind.Method,
+    insertText: "concat($1, $2)",
+    insertTextRules:
+      monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+    documentation:
+      "Concatenates two arrays. It returns the concatenated array.",
+  },
+];
